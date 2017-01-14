@@ -1,4 +1,4 @@
-package com.lee.nju_gpa_calculator;
+package com.lee.nju_gpa_calculator.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.lee.nju_gpa_calculator.R;
 
 public class MainActivity extends AppCompatActivity {
 

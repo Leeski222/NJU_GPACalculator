@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by Guo on 2017/1/15.
+ *
  * 保存单门学科成绩的实体类
  *
  * 采用android独有的Parcelable接口实现序列化
@@ -23,14 +24,18 @@ public class Score implements Parcelable{
     private String finalScore;      // 总评
     private String credit;          // 学分
 
-    //Parcelable接口必须实现的方法，可直接返回0
+    /**
+     * Parcelable接口必须实现的方法，可直接返回0
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
-    //Parcelable接口必须实现的方法，用于将实体类的数据写入外部Parcel
-    @Override
+    /**
+     * Parcelable接口必须实现的方法，用于将实体类的数据写入外部Parcel
+     */
+     @Override
     public void writeToParcel(Parcel outParcel, int flags) {
         outParcel.writeString(ID);
         outParcel.writeString(subject);
@@ -39,10 +44,11 @@ public class Score implements Parcelable{
         outParcel.writeString(credit);
     }
 
-    //用Parcelable接口序列化的类
-    //内部必须实现实例化静态内部对象CREATOR
-    //以此实现接口Parcelable.Creator
-    public static final Parcelable.Creator<Score> CREATOR = new Creator<Score>() {
+    /**用Parcelable接口序列化的类
+     * 内部必须实现实例化静态内部对象CREATOR
+     * 以此实现接口Parcelable.Creator
+     */
+     public static final Parcelable.Creator<Score> CREATOR = new Creator<Score>() {
         @Override
         public Score[] newArray(int size) {
             return new Score[size];
@@ -62,7 +68,9 @@ public class Score implements Parcelable{
         credit = inputParcel.readString();
     }
 
-    //所有属性的setter和getter方法
+    /**
+     * 所有属性的setter和getter方法
+     */
     public String getID() {
         return ID;
     }

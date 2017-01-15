@@ -3,7 +3,21 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/gpa_button"
+        android:id="@+id/btn_confirm"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:drawableTop="@mipmap/score_icon"
+        android:text="@string/login_button_name"
+        android:textAllCaps="false"
+        android:textSize="26sp"
+        android:padding="10dp"
+        android:layout_marginTop="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_gpa"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -12,7 +26,31 @@
         android:textAllCaps="false"
         android:textSize="26sp"
         android:padding="10dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/btn_confirm"
+        android:layout_alignLeft="@+id/btn_confirm"
+        android:layout_alignStart="@+id/btn_confirm"
+        android:layout_marginTop="57dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_message"
+        android:id="@+id/tv_app_message"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/producer_info"
+        android:id="@+id/tv_producer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tv_app_message"
+        android:layout_alignEnd="@+id/tv_app_message"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
 
 </RelativeLayout>

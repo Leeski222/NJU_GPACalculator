@@ -17,6 +17,22 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private Button GPAButton;
 
+    private static boolean loginState;
+
+    /**
+     * 获取登录状态的方法
+     */
+    public static boolean getLoginState() {
+        return loginState;
+    }
+
+    /**
+     * 设置登录状态的方法
+     */
+    public static void setLoginState(boolean state){
+        loginState = state;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //根据登录状态的不同跳转至不同的Activity
-                if(LoginActivity.isLogin() == true){
+                if(loginState == true){
                     Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                     MainActivity.this.startActivity(intent);
                 } else {
@@ -42,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //如果已登录则直接显示成绩列表，如果未登录则提示需要登录
-                if(LoginActivity.isLogin() == true){
+                if(loginState == true){
                     Intent intent = new Intent(MainActivity.this, GPAActivity.class);
                     MainActivity.this.startActivity(intent);
                 } else {

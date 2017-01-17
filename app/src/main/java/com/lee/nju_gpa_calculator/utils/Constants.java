@@ -9,20 +9,13 @@ public class Constants {
     // 用于SharedPreferences保存程序状态文件时
     public static final String APP_DATA = "app_data";
     public static final String FIRST_INSTALL = "first_install";
-    public static final String TIME_OF_ENROLLMENT = "time_of_enrollment";
+    public static final String SAVE_ID = "save_id";
+    public static final String SAVE_PASSWORD = "save_password";
 
-    // Jsoup解析后传递的Map所用的key值
-    public static final String STUDENTNAME = "studentName";
-    public static final String FAILEDINFO = "failedInfo";
-
-    /**
-     * 教务系统登录界面网址
-     */
+    //教务系统登录界面网址
     public static final String EDUCATION_SYSTEM_LOGIN_URL = "http://219.219.120.48/jiaowu/login.do";
 
-    /**
-     * 查询成绩的网址
-     */
+    //查询成绩的网址
     public static final String SEARCH_SCORE_URL = "";
 
     // 请求头

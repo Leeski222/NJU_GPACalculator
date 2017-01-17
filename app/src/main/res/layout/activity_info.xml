@@ -2,4 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_name"
+        android:id="@+id/tv_name"
+        android:textStyle="bold|italic"
+        android:layout_alignTop="@+id/tv_name_f"
+        android:layout_toLeftOf="@+id/btn_logout"
+        android:layout_toStartOf="@+id/btn_logout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_ID"
+        android:textStyle="bold|italic"
+        android:id="@+id/tv_id"
+        android:layout_below="@+id/tv_name"
+        android:layout_alignLeft="@+id/tv_name"
+        android:layout_alignStart="@+id/tv_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tv_name_f"
+        android:layout_marginTop="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="110dp"
+        android:layout_marginEnd="110dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tv_id_f"
+        android:layout_below="@+id/tv_name_f"
+        android:layout_alignLeft="@+id/tv_name_f"
+        android:layout_alignStart="@+id/tv_name_f" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout_button_name"
+        android:id="@+id/btn_logout"
+        android:background="@drawable/button_login"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/tv_id_f"
+        android:layout_toLeftOf="@+id/tv_id_f"
+        android:layout_toStartOf="@+id/tv_id_f"
+        android:layout_marginTop="53dp" />
 </RelativeLayout>

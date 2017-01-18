@@ -10,8 +10,10 @@
         android:id="@+id/tv_name"
         android:textStyle="bold|italic"
         android:layout_alignTop="@+id/tv_name_f"
-        android:layout_toLeftOf="@+id/btn_logout"
-        android:layout_toStartOf="@+id/btn_logout" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,12 +32,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/tv_name_f"
-        android:layout_marginTop="55dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="110dp"
-        android:layout_marginEnd="110dp" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,8 +52,115 @@
         android:id="@+id/btn_logout"
         android:background="@drawable/button_login"
         android:textColor="@android:color/white"
+        android:layout_marginBottom="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/tv_belongGrade"
+        android:layout_alignStart="@+id/tv_belongGrade" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_sex"
+        android:textStyle="bold|italic"
+        android:id="@+id/tv_sex"
+        android:layout_below="@+id/tv_id"
+        android:layout_alignLeft="@+id/tv_id"
+        android:layout_alignStart="@+id/tv_id" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tv_sex_f"
         android:layout_below="@+id/tv_id_f"
-        android:layout_toLeftOf="@+id/tv_id_f"
-        android:layout_toStartOf="@+id/tv_id_f"
-        android:layout_marginTop="53dp" />
+        android:layout_alignLeft="@+id/tv_id_f"
+        android:layout_alignStart="@+id/tv_id_f" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_department"
+        android:textStyle="bold|italic"
+        android:id="@+id/tv_department"
+        android:layout_below="@+id/tv_sex"
+        android:layout_alignRight="@+id/tv_sex"
+        android:layout_alignEnd="@+id/tv_sex" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tv_department_f"
+        android:layout_below="@+id/tv_sex_f"
+        android:layout_alignLeft="@+id/tv_sex_f"
+        android:layout_alignStart="@+id/tv_sex_f" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_startGrade"
+        android:id="@+id/tv_startGrade"
+        android:textStyle="bold|italic"
+        android:layout_below="@+id/tv_department"
+        android:layout_alignLeft="@+id/tv_department"
+        android:layout_alignStart="@+id/tv_department" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:gravity="left"
+        android:id="@+id/tv_startGrade_f"
+        android:layout_below="@+id/tv_department"
+        android:layout_alignRight="@+id/tv_department_f"
+        android:layout_alignEnd="@+id/tv_department_f" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_belongGrade"
+        android:id="@+id/tv_belongGrade"
+        android:textStyle="bold|italic"
+        android:layout_below="@+id/tv_startGrade"
+        android:layout_alignLeft="@+id/tv_startGrade"
+        android:layout_alignStart="@+id/tv_startGrade" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tv_belongGrade_f"
+        android:gravity="left"
+        android:layout_below="@+id/tv_startGrade_f"
+        android:layout_alignLeft="@+id/tv_startGrade_f"
+        android:layout_alignStart="@+id/tv_startGrade_f" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/iv_photo"
+        android:src="@mipmap/photo_boy"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tv_name"
+        android:layout_toEndOf="@+id/tv_name"
+        android:layout_marginTop="43dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/return_button_name"
+        android:id="@+id/btn_return"
+        android:background="@drawable/button_login"
+        android:textColor="@android:color/white"
+        android:layout_alignTop="@+id/btn_logout"
+        android:layout_alignRight="@+id/tv_belongGrade_f"
+        android:layout_alignEnd="@+id/tv_belongGrade_f" />
 </RelativeLayout>

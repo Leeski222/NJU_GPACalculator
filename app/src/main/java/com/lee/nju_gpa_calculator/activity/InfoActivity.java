@@ -1,12 +1,15 @@
 package com.lee.nju_gpa_calculator.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
+import com.lee.nju_gpa_calculator.model.Student;
 import com.lee.nju_gpa_calculator.utils.JsoupUtil;
 
 import org.jsoup.Jsoup;
@@ -21,13 +24,34 @@ import java.util.ArrayList;
  */
 public class InfoActivity extends AppCompatActivity{
 
+    private static Student studentInfo;
+
     private TextView nameText;
     private TextView studentIDText;
+    private TextView sexText;
+    private TextView departmentText;
+    private TextView startGradeText;
+    private TextView belongGradeText;
+
     private Button logoutButton;
+    private Button returnButton;
+
+    private Handler handler;
+
+    public static Student getStudentInfo() {
+        return studentInfo;
+    }
+
+    public static void setStudentInfo(Student studentInfo) {
+        InfoActivity.studentInfo = studentInfo;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("LG", "已经被创建");
+
+        handler = new Handler();
 
         setContentView(R.layout.activity_info);
         initView();
@@ -35,15 +59,37 @@ public class InfoActivity extends AppCompatActivity{
 
     private void initView(){
         nameText = (TextView) findViewById(R.id.tv_name_f);
-        nameText.setText(GPAActivity.getUserName());
         studentIDText = (TextView) findViewById(R.id.tv_id_f);
-        studentIDText.setText(GPAActivity.getUserID());
+        sexText = (TextView) findViewById(R.id.tv_sex_f);
+        departmentText = (TextView) findViewById(R.id.tv_department_f);
+        startGradeText = (TextView) findViewById(R.id.tv_startGrade_f);
+        belongGradeText = (TextView) findViewById(R.id.tv_belongGrade_f);
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                nameText.setText(studentInfo.getName());
+                studentIDText.setText(studentInfo.getID());
+                sexText.setText(studentInfo.getSex());
+                departmentText.setText(studentInfo.getDepartment());
+                startGradeText.setText(studentInfo.getStartGrade());
+                belongGradeText.setText(studentInfo.getBelongGrade());
+            }
+        });
 
         logoutButton = (Button) findViewById(R.id.btn_logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.setLoginState(false);
+                finish();
+            }
+        });
+
+        returnButton = (Button) findViewById(R.id.btn_return);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

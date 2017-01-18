@@ -1,11 +1,11 @@
 package com.lee.nju_gpa_calculator.utils;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lee.nju_gpa_calculator.activity.GPAActivity;
-import com.lee.nju_gpa_calculator.activity.InfoActivity;
 import com.lee.nju_gpa_calculator.activity.MainActivity;
 
 import java.io.IOException;
@@ -30,27 +30,29 @@ public class OkHttpUtil {
     private OkHttpClient okHttpClient;
     private Headers.Builder headersBuilder;
     private FormBody.Builder bodyBuilder;
+    private Handler handler;
 
     public OkHttpUtil(){
-        okHttpClient = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        okHttpClient = builder.cookieJar(new CookieJarImpl()).build();
         headersBuilder = new Headers.Builder();
         bodyBuilder = new FormBody.Builder();
+        handler = new Handler();
     }
 
     /********************* 供外部调用的登录方法 **********************/
     public void confirmLogin(Context context, String studentID, String password){
         GPAActivity.setUserID(studentID);
-        Request request = buildRequest(studentID, password);
-        postAsync(context, request);
+        Request request = buildLoginRequest(studentID, password);
+        postAsyncLogin(context, request);
     }
-
 
     /********************* 供内部使用的封装方法 **********************/
 
     /**
      * 封装后的南大教务网的登录post异步请求
      */
-    private void postAsync(final Context context, Request request){
+    private void postAsyncLogin(final Context context, Request request){
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -66,9 +68,18 @@ public class OkHttpUtil {
                     if(result){
                         Log.e("LG", "成功调用Async");
                         MainActivity.setLoginState(true);
-                        context.startActivity(new Intent(context, InfoActivity.class));
+
+                        Request request = buildInfoRequest();
+                        getAsyncInfo(context, request);
                     } else {
-                        Log.e("LG", "JsoupUtil失败");
+                        MainActivity.setLoginState(false);
+                        Log.e("LG", "登录失败");
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "登录失败,请重试。", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 } else {
                     MainActivity.setLoginState(false);
@@ -76,13 +87,32 @@ public class OkHttpUtil {
                 }
             }
         });
-
     }
 
     /**
-     * 封装好的教务网登录Request构建方法
+     * 封装后的南大教务网的个人信息get异步请求
      */
-    private Request buildRequest(String studentID, String password){
+    private void getAsyncInfo(final Context context, Request request){
+
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    Log.e("LG", "已经获得个人信息的response");
+                    new JsoupUtil().updateInfoByParseResponse(context, response.body().bytes());
+                }
+            }
+        });
+    }
+
+    /**
+     * 封装后的教务网登录Request构建方法
+     */
+    private Request buildLoginRequest(String studentID, String password){
         //生成header文件
         Headers headers = headersBuilder
                 .add(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
@@ -105,7 +135,26 @@ public class OkHttpUtil {
                 .post(requestBody)
                 .build();
 
-        Log.e("LG", "调用request");
+        return request;
+    }
+
+    /**
+     * 封装后的教务网个人信息Request构建方法
+     */
+    private Request buildInfoRequest(){
+//        //生成header文件
+//        Headers headers = headersBuilder
+//                .add(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
+//                .add(Constants.HEADER_NAME_REFERER, Constants.HEADER_VALUE_REFERER_INFO)
+//                .add(Constants.HEADER_NAME_AGENT, Constants.HEADER_VALUE_AGENT)
+//                .build();
+
+        //生成request文件
+        Request request = new Request.Builder()
+                .cacheControl(new CacheControl.Builder().noCache().build())
+                .url(Constants.EDUCATION_SYSTEM_INFO_URL)
+                .build();
+
         return request;
     }
 }

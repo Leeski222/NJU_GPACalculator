@@ -24,6 +24,7 @@ import java.util.ArrayList;
  */
 public class InfoActivity extends AppCompatActivity{
 
+    //保存已经登录学生的个人信息
     private static Student studentInfo;
 
     private TextView nameText;
@@ -81,6 +82,7 @@ public class InfoActivity extends AppCompatActivity{
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GPAActivity.clearList();
                 MainActivity.setLoginState(false);
                 finish();
             }

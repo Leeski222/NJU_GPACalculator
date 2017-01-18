@@ -19,7 +19,7 @@ public class Constants {
     public static final String EDUCATION_SYSTEM_INFO_URL = "http://219.219.120.48/jiaowu/student/studentinfo/studentinfo.do?method=searchAllList";
 
     //查询成绩的网址,后面需要加上年级
-    public static final String SEARCH_SCORE_URL = "http://219.219.120.48/jiaowu/student/studentinfo/achievementinfo.do?method=searchTermList&termCode=";
+    public static final String EDUCATION_SYSTEM_SCORE_URL = "http://219.219.120.48/jiaowu/student/studentinfo/achievementinfo.do?method=searchTermList&termCode=";
 
     // 请求头
     public static final String HEADER_NAME_HOST = "Host";

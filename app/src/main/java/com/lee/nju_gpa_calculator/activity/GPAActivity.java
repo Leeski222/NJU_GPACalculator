@@ -2,8 +2,14 @@ package com.lee.nju_gpa_calculator.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
-import com.lee.nju_gpa_calculator.model.Student;
+import com.lee.nju_gpa_calculator.R;
+import com.lee.nju_gpa_calculator.model.Course;
+
+import java.util.ArrayList;
 
 /**
  * Created by Guo on 2017/1/15.
@@ -11,36 +17,42 @@ import com.lee.nju_gpa_calculator.model.Student;
  * 分数界面的逻辑层
  */
 public class GPAActivity extends AppCompatActivity{
-    private static String userName;
-    private static String userID;
-    private static Student studentInfo;
 
-    public static String getUserName() {
-        return userName;
+    private static ArrayList<Course> courseList = new ArrayList();
+
+    private Button testButton;
+
+    public static void addCourse(Course course){
+        courseList.add(course);
     }
 
-    public static void setUserName(String userName) {
-        GPAActivity.userName = userName;
+    public static void clearList(){
+        courseList.clear();
+        Log.e("LG", "list清空");
     }
 
-    public static String getUserID() {
-        return userID;
-    }
-
-    public static void setUserID(String userID) {
-        GPAActivity.userID = userID;
-    }
-
-    public static Student getStudentInfo() {
-        return studentInfo;
-    }
-
-    public static void setStudentInfo(Student studentInfo) {
-        GPAActivity.studentInfo = studentInfo;
+    public void print(){
+        for(Course course : courseList){
+            Log.e("LG", course.getSubject());
+            Log.e("LG", course.getCategory());
+            Log.e("LG", course.getCredit());
+            Log.e("LG", course.getFinalScore());
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_gpa);
+
+        testButton = (Button) findViewById(R.id.tv_test);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                print();
+            }
+        });
     }
+
 }

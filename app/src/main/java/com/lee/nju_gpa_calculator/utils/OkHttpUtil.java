@@ -5,10 +5,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lee.nju_gpa_calculator.activity.GPAActivity;
 import com.lee.nju_gpa_calculator.activity.MainActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.CacheControl;
 import okhttp3.Call;
@@ -27,53 +27,96 @@ import okhttp3.Response;
  */
 public class OkHttpUtil {
 
+    private ArrayList<String> termNumList;
+
     private OkHttpClient okHttpClient;
     private Headers.Builder headersBuilder;
     private FormBody.Builder bodyBuilder;
     private Handler handler;
 
     public OkHttpUtil(){
+        //OkHttpClient必须构造成带有自动Cookie管理的形式，否则无法保存登录状态
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         okHttpClient = builder.cookieJar(new CookieJarImpl()).build();
+
         headersBuilder = new Headers.Builder();
         bodyBuilder = new FormBody.Builder();
         handler = new Handler();
+        termNumList = new ArrayList();
     }
+
 
     /********************* 供外部调用的登录方法 **********************/
     public void confirmLogin(Context context, String studentID, String password){
-        GPAActivity.setUserID(studentID);
+        initTermList(studentID);
         Request request = buildLoginRequest(studentID, password);
         postAsyncLogin(context, request);
     }
 
+
+
     /********************* 供内部使用的封装方法 **********************/
+
+    /**
+     * 根据学号初始化学期数
+     */
+    private void initTermList(String stundentID){
+        if(stundentID.length() == 9) {
+            String startYear = stundentID.substring(0, 2);
+
+            if (startYear.equals("16")) {
+                termNumList.add("20161");
+            } else if (startYear.equals("15")) {
+                termNumList.add("20161");
+                termNumList.add("20152");
+                termNumList.add("20151");
+            } else if (startYear.equals("14")) {
+                termNumList.add("20161");
+                termNumList.add("20152");
+                termNumList.add("20151");
+                termNumList.add("20142");
+                termNumList.add("20141");
+            } else if (startYear.equals("13")) {
+                termNumList.add("20161");
+                termNumList.add("20152");
+                termNumList.add("20151");
+                termNumList.add("20142");
+                termNumList.add("20141");
+                termNumList.add("20132");
+                termNumList.add("20131");
+            }
+        }
+    }
 
     /**
      * 封装后的南大教务网的登录post异步请求
      */
-    private void postAsyncLogin(final Context context, Request request){
+    private void postAsyncLogin(final Context context, final Request request){
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 MainActivity.setLoginState(false);
-                Log.e("LG", "调用Async失败");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    boolean result = new JsoupUtil().getLoginStateByParseResponse(response.body().bytes());
+                    boolean result = new JsoupUtil().getLoginState(response.body().bytes());
+                    //如果验证通过，则开始抓取学生个人信息和成绩列表
                     if(result){
-                        Log.e("LG", "成功调用Async");
                         MainActivity.setLoginState(true);
 
-                        Request request = buildInfoRequest();
-                        getAsyncInfo(context, request);
+                        for(String termNum : termNumList) {
+                            Request socreRequest = buildScoreRequest(termNum);
+                            getAsyncScore(socreRequest);
+                        }
+                        termNumList = new ArrayList();
+
+                        Request infoRequest = buildInfoRequest();
+                        getAsyncInfo(context, infoRequest);
                     } else {
                         MainActivity.setLoginState(false);
-                        Log.e("LG", "登录失败");
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -83,7 +126,6 @@ public class OkHttpUtil {
                     }
                 } else {
                     MainActivity.setLoginState(false);
-                    Log.e("LG", "Response失败");
                 }
             }
         });
@@ -103,7 +145,26 @@ public class OkHttpUtil {
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
                     Log.e("LG", "已经获得个人信息的response");
-                    new JsoupUtil().updateInfoByParseResponse(context, response.body().bytes());
+                    new JsoupUtil().updateInfo(context, response.body().bytes());
+                }
+            }
+        });
+    }
+
+    /**
+     * 封装后的南大教务网的课程分数get异步请求
+     */
+    private void getAsyncScore(Request request){
+
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    new JsoupUtil().updateScore(response.body().bytes());
                 }
             }
         });
@@ -142,17 +203,23 @@ public class OkHttpUtil {
      * 封装后的教务网个人信息Request构建方法
      */
     private Request buildInfoRequest(){
-//        //生成header文件
-//        Headers headers = headersBuilder
-//                .add(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
-//                .add(Constants.HEADER_NAME_REFERER, Constants.HEADER_VALUE_REFERER_INFO)
-//                .add(Constants.HEADER_NAME_AGENT, Constants.HEADER_VALUE_AGENT)
-//                .build();
-
         //生成request文件
         Request request = new Request.Builder()
                 .cacheControl(new CacheControl.Builder().noCache().build())
                 .url(Constants.EDUCATION_SYSTEM_INFO_URL)
+                .build();
+
+        return request;
+    }
+
+    /**
+     * 封装后的教务网课程成绩Request构建方法
+     */
+    private Request buildScoreRequest(String termNum){
+        //生成request文件
+        Request request = new Request.Builder()
+                .cacheControl(new CacheControl.Builder().noCache().build())
+                .url(Constants.EDUCATION_SYSTEM_SCORE_URL + termNum)
                 .build();
 
         return request;

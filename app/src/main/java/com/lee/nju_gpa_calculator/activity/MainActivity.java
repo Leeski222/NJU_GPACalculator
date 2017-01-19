@@ -20,13 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private static boolean loginState;
 
     /**
-     * 获取登录状态的方法
-     */
-    public static boolean getLoginState() {
-        return loginState;
-    }
-
-    /**
      * 设置登录状态的方法
      */
     public static void setLoginState(boolean state){

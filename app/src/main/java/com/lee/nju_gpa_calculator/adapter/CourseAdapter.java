@@ -1,7 +1,6 @@
 package com.lee.nju_gpa_calculator.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,10 +93,8 @@ public class CourseAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     selectSubject.put(course.getSubject(), Boolean.TRUE);
-                    Log.e("LG", "选择");
                     double credit = 0;
                     try {
-                        Log.e("LG", "select" + course.getCredit());
                         credit = Double.parseDouble(course.getCredit());
                     } catch (Exception e) {
                         GPAActivity.addError();
@@ -105,7 +102,6 @@ public class CourseAdapter extends BaseAdapter {
 
                     double finalScore = 0;
                     try {
-                        Log.e("LG", "select" + course.getFinalScore());
                         finalScore = Double.parseDouble(course.getFinalScore());
                     } catch (Exception e) {
                         GPAActivity.addError();
@@ -116,9 +112,7 @@ public class CourseAdapter extends BaseAdapter {
                 } else {
                     selectSubject.put(course.getSubject(), Boolean.FALSE);
                     double credit = 0;
-                    Log.e("LG", "弃选");
                     try {
-                        Log.e("LG", "unselect" + course.getCredit());
                         credit = Double.parseDouble(course.getCredit());
                     } catch (Exception e) {
                         GPAActivity.subError();
@@ -126,7 +120,6 @@ public class CourseAdapter extends BaseAdapter {
 
                     double finalScore = 0;
                     try {
-                        Log.e("LG", "unselect" + course.getFinalScore());
                         finalScore = Double.parseDouble(course.getFinalScore());
                     } catch (Exception e) {
                         GPAActivity.subError();

@@ -3,7 +3,6 @@ package com.lee.nju_gpa_calculator.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -67,7 +66,6 @@ public class GPAActivity extends AppCompatActivity{
         sumCredit = 0;
         sumScore = 0;
         errorNumber = 0;
-        Log.e("LG", "list清空");
     }
 
     @Override

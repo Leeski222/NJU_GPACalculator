@@ -4,7 +4,6 @@ package com.lee.nju_gpa_calculator.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -54,7 +53,6 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 final String userName = userNameEditText.getText().toString();
                 final String password = passwordEditText.getText().toString();
-                Log.e("LG", userName + "　" + password);
 
                 saveData(userName, password);
 

@@ -2,7 +2,6 @@ package com.lee.nju_gpa_calculator.utils;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.lee.nju_gpa_calculator.activity.MainActivity;
@@ -143,7 +142,6 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    Log.e("LG", "已经获得个人信息的response");
                     new JsoupUtil().updateInfo(context, response.body().bytes());
                 }
             }

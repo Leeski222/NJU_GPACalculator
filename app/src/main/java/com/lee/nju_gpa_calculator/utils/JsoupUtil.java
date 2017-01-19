@@ -2,7 +2,6 @@ package com.lee.nju_gpa_calculator.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.lee.nju_gpa_calculator.activity.GPAActivity;
 import com.lee.nju_gpa_calculator.activity.InfoActivity;
@@ -85,11 +84,9 @@ public class JsoupUtil {
             //依次为序号 课程编号 课程名称 英文名称 课程类型 学分 总评 备注 交换成绩对应课程
             Elements courseProperties = document.select(".TABLE_BODY").first().getElementsByTag("td");
             int total = (courseProperties.size() + 1) / 9;
-            Log.e("LG", total +  "total");
             for(int i = 0; i < total; i ++) {
                 int location = i * 9;
 
-                Log.e("LG", "subject " + courseProperties.get( location + 2).html());
                 Course course = new Course();
                 course.setSubject( courseProperties.get( location + 2).html().trim() );
                 course.setCategory( courseProperties.get(location + 4).html().trim() );

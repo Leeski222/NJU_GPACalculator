@@ -13,8 +13,8 @@ public class Course{
 
     private String subject;         // 科目
     private String category;        // 类别
-    private String finalScore;      // 总评
     private String credit;          // 学分
+    private String finalScore;      // 总评
 
     /**
      * 所有属性的setter和getter方法

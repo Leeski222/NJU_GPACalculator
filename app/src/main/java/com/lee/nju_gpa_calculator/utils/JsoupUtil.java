@@ -91,16 +91,16 @@ public class JsoupUtil {
 
                 Log.e("LG", "subject " + courseProperties.get( location + 2).html());
                 Course course = new Course();
-                course.setSubject( courseProperties.get( location + 2).html() );
-                course.setCategory( courseProperties.get(location + 4).html() );
-                course.setCredit( courseProperties.get(location + 5).html() );
+                course.setSubject( courseProperties.get( location + 2).html().trim() );
+                course.setCategory( courseProperties.get(location + 4).html().trim() );
+                course.setCredit( courseProperties.get(location + 5).html().trim() );
 
                 //如果该课程有分数，则抓下来的分数数据为 <xxxxx> score <>格式，需要进一步提取信息，如果为无成绩，则为直接可用的字符串
                 String finalSocre = courseProperties.get(location + 6).html().trim();
                 if(finalSocre.contains(">")){
                     finalSocre = finalSocre.split(">")[1].split("<")[0];
                 }
-                course.setFinalScore( finalSocre );
+                course.setFinalScore( finalSocre.trim() );
 
                 GPAActivity.addCourse(course);
             }

@@ -51,7 +51,6 @@ public class InfoActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("LG", "已经被创建");
 
         handler = new Handler();
 
@@ -85,7 +84,8 @@ public class InfoActivity extends AppCompatActivity{
             public void onClick(View v) {
                 //必须将其中静态的cookie清空，否则影响到下一次信息的获取
                 CookieJarImpl.clearCookies();
-                GPAActivity.clearList();
+                //将GPAActivity中缓存的本地数据全部清空
+                GPAActivity.clear();
                 MainActivity.setLoginState(false);
                 finish();
             }

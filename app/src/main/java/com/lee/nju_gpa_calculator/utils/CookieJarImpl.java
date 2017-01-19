@@ -30,4 +30,8 @@ public class CookieJarImpl implements CookieJar{
             return new ArrayList();
         }
     }
+
+    public static void clearCookies() {
+        cookies = null;
+    }
 }

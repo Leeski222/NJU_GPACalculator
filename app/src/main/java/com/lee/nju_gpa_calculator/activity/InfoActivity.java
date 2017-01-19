@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.model.Student;
+import com.lee.nju_gpa_calculator.utils.CookieJarImpl;
 import com.lee.nju_gpa_calculator.utils.JsoupUtil;
 
 import org.jsoup.Jsoup;
@@ -82,6 +83,8 @@ public class InfoActivity extends AppCompatActivity{
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //必须将其中静态的cookie清空，否则影响到下一次信息的获取
+                CookieJarImpl.clearCookies();
                 GPAActivity.clearList();
                 MainActivity.setLoginState(false);
                 finish();

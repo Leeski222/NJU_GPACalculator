@@ -8,7 +8,8 @@ package com.lee.nju_gpa_calculator.utils;
 public class Constants {
     // 用于SharedPreferences保存程序状态文件时
     public static final String APP_DATA = "app_data";
-    public static final String FIRST_INSTALL = "first_install";
+    public static final String IS_SAVE_ID = "is_save_id";
+    public static final String IS_SAVE_PASSWORD = "is_save_password";
     public static final String SAVE_ID = "save_id";
     public static final String SAVE_PASSWORD = "save_password";
 

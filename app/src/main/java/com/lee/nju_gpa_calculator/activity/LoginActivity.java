@@ -64,26 +64,59 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     /**
-     * 根据复选框的情况而确定是否在app中保存账号和密码
+     * 记录复选框的状态
+     * 并根据复选框的情况并确定是否在app中保存账号和密码
      */
     private void saveData(String userName, String password){
         if(rIDCheckBox.isChecked()){
+            AppData.isSaveID(LoginActivity.this, true);
             AppData.saveID(LoginActivity.this, userName);
         } else {
+            AppData.isSaveID(LoginActivity.this, false);
             AppData.saveID(LoginActivity.this, null);
         }
 
         if(rPaCheckBox.isChecked()){
+            AppData.isSavePassword(LoginActivity.this, true);
             AppData.savePassword(LoginActivity.this, password);
         } else {
+            AppData.isSavePassword(LoginActivity.this, false);
             AppData.savePassword(LoginActivity.this, null);
         }
     }
 
     /**
+     * 如果用户上次选择了保存，则这次启动时同样自动勾选复选框
      * 如果app中存储有账号和密码，则初始化输入框
      */
     private void initData(){
+        if(AppData.getSaveIDState(LoginActivity.this) == true){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    rIDCheckBox.setChecked(true);
+                }
+            });
+        }
+
+        if(AppData.getSavePasswordState(LoginActivity.this) == true){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    rPaCheckBox.setChecked(true);
+                }
+            });
+        }
+
+        if(AppData.getID(LoginActivity.this) != null){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    userNameEditText.setText(AppData.getID(LoginActivity.this));
+                }
+            });
+        }
+
         if(AppData.getID(LoginActivity.this) != null){
             handler.post(new Runnable() {
                 @Override

@@ -111,7 +111,6 @@ public class OkHttpUtil {
                             Request socreRequest = buildScoreRequest(termNum);
                             getAsyncScore(socreRequest);
                         }
-                        termNumList = new ArrayList();
 
                         Request infoRequest = buildInfoRequest();
                         getAsyncInfo(context, infoRequest);
@@ -218,7 +217,7 @@ public class OkHttpUtil {
     private Request buildScoreRequest(String termNum){
         //生成request文件
         Request request = new Request.Builder()
-                .cacheControl(new CacheControl.Builder().noCache().build())
+                .cacheControl(CacheControl.FORCE_NETWORK)
                 .url(Constants.EDUCATION_SYSTEM_SCORE_URL + termNum)
                 .build();
 

@@ -42,10 +42,6 @@ public class LoginActivity extends AppCompatActivity{
      */
     private void initViews() {
         confirmButton = (Button) findViewById(R.id.btn_confirm);
-        userNameEditText = (EditText) findViewById(R.id.et_inputUsername);
-        passwordEditText = (EditText) findViewById(R.id.et_inputPassword);
-        rIDCheckBox = (CheckBox) findViewById(R.id.cb_remember_name);
-        rPaCheckBox = (CheckBox) findViewById(R.id.cb_remember_password);
 
         //为登录键添加监听
         confirmButton.setOnClickListener(new View.OnClickListener() {

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
-import com.lee.nju_gpa_calculator.model.Student;
+import com.lee.nju_gpa_calculator.adapter.model.Student;
 import com.lee.nju_gpa_calculator.utils.CookieJarImpl;
 
 /**

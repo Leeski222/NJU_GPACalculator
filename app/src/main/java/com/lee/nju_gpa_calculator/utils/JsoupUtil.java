@@ -6,8 +6,8 @@ import android.content.Intent;
 import com.lee.nju_gpa_calculator.activity.GPAActivity;
 import com.lee.nju_gpa_calculator.activity.InfoActivity;
 import com.lee.nju_gpa_calculator.activity.LoginActivity;
-import com.lee.nju_gpa_calculator.model.Course;
-import com.lee.nju_gpa_calculator.model.Student;
+import com.lee.nju_gpa_calculator.adapter.model.Course;
+import com.lee.nju_gpa_calculator.adapter.model.Student;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -6,93 +6,113 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_tittle_info"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/login_button_name"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="30sp"
-            android:textStyle="bold|italic" />
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <View
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/login_et_studentID"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/holo_blue_light" />
-    </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="@string/student_ID"
+            android:singleLine="true"/>
 
-    <EditText
-        android:id="@+id/et_inputUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@mipmap/username"
-        android:hint="@string/student_ID"
-        android:inputType="number"
-        android:maxLines="1"/>
+        <EditText
+            android:id="@+id/login_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="@string/student_password"
+            android:singleLine="true"/>
 
-    <EditText
-        android:id="@+id/et_inputPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@mipmap/password"
-        android:hint="@string/student_password"
-        android:inputType="textPassword"
-        android:maxLines="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_show" />
+            <EditText
+                android:id="@+id/login_et_validate_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:hint="@string/validate_code"
+                android:singleLine="true"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/remember_name"
-        android:id="@+id/cb_remember_name"
-        android:checked="false" />
+            <ImageView
+                android:id="@+id/login_iv_validate_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/remember_password"
-        android:id="@+id/cb_remember_password"
-        android:checked="false" />
+            <Button
+                android:id="@+id/login_btn_next"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="@string/next_one"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <CheckBox
+                android:id="@+id/login_cb_save_id"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colorBlack"
+                android:hint="@string/remember_id"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/login_cb_save_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colorBlack"
+                android:hint="@string/remember_password"/>
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:id="@+id/login_btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/button_login"
-            android:text="@string/login_button_name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:text="@string/login_button_name"/>
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></LinearLayout>
+
 
 </LinearLayout>

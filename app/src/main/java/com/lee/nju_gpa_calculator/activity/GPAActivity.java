@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.adapter.CourseAdapter;
-import com.lee.nju_gpa_calculator.model.Course;
+import com.lee.nju_gpa_calculator.adapter.model.Course;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

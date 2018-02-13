@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.activity.GPAActivity;
-import com.lee.nju_gpa_calculator.model.Course;
+import com.lee.nju_gpa_calculator.adapter.model.Course;
 
 import java.util.ArrayList;
 import java.util.HashMap;

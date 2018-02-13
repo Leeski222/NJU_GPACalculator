@@ -1,4 +1,4 @@
-package com.lee.nju_gpa_calculator.model;
+package com.lee.nju_gpa_calculator.adapter.model;
 
 /**
  * Created by Guo on 2017/1/18.

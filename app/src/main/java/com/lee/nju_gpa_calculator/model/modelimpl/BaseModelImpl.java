@@ -1,6 +1,7 @@
 package com.lee.nju_gpa_calculator.model.modelimpl;
 
 import com.lee.nju_gpa_calculator.utils.CookieJarImpl;
+import com.lee.nju_gpa_calculator.utils.HeadersInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ public class BaseModelImpl {
 
     protected BaseModelImpl() {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.addInterceptor(new HeadersInterceptor());
         httpClientBuilder.cookieJar(new CookieJarImpl());
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 

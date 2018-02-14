@@ -14,12 +14,20 @@ public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
         void setValidateCodeImage(Bitmap bitmap);
+
+        void refreshValidateCodeSuccess();
+
+        void refreshValidateCodeFailed();
+
+        void loginSuccess();
+
+        void loginFailed(LoginResult result);
     }
 
     interface Presenter extends BasePresenter {
         void getValidateCodeImage();
 
-        LoginResult login(String id, String password, String validateCode);
+        void login(String id, String password, String validateCode);
     }
 
 }

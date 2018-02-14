@@ -175,14 +175,14 @@ public class OkHttpUtil {
         Headers headers = headersBuilder
                 .add(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
                 .add(Constants.HEADER_NAME_REFERER, Constants.HEADER_VALUE_REFERER)
-                .add(Constants.HEADER_NAME_AGENT, Constants.HEADER_VALUE_AGENT)
+//                .add(Constants.HEADER_NAME_AGENT, Constants.HEADER_VALUE_AGENT)
                 .build();
 
         //生成body文件
         RequestBody requestBody = bodyBuilder
-                .add(Constants.LOGIN_BODY_NAME_PASSWORD, password)
-                .add(Constants.LOGIN_BODY_NAME_RETURNURL, Constants.LOGIN_BODY_VALUE_RETURNURL)
-                .add(Constants.LOGIN_BODY_NAME_USERNAME, studentID)
+//                .add(Constants.LOGIN_BODY_NAME_PASSWORD, password)
+//                .add(Constants.LOGIN_BODY_NAME_RETURNURL, Constants.LOGIN_BODY_VALUE_RETURNURL)
+//                .add(Constants.LOGIN_BODY_NAME_USERNAME, studentID)
                 .build();
 
         //生成request文件

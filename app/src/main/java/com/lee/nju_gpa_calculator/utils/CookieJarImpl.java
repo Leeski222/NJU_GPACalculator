@@ -13,7 +13,7 @@ import okhttp3.HttpUrl;
  * 保存和管理登录状态的类
  * 将其添加到OkHttpClient可实现对Cookie的自动化管理
  */
-public class CookieJarImpl implements CookieJar{
+public class CookieJarImpl implements CookieJar {
 
     private static List<Cookie> cookies;
 

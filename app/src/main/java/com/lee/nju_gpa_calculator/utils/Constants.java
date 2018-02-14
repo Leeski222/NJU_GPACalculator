@@ -6,6 +6,9 @@ package com.lee.nju_gpa_calculator.utils;
  * 用来统一保存和管理其他类中需要的常量数据
  */
 public class Constants {
+
+    private Constants() {}
+
     // 用于SharedPreferences保存程序状态文件时
     public static final String APP_DATA = "app_data";
     public static final String IS_SAVE_ID = "is_save_id";
@@ -23,21 +26,15 @@ public class Constants {
     public static final String EDUCATION_SYSTEM_SCORE_URL = "http://219.219.120.48/jiaowu/student/studentinfo/achievementinfo.do?method=searchTermList&termCode=";
 
     // 请求头
-    public static final String HEADER_NAME_HOST = "Host";
-    public static final String HEADER_VALUE_HOST = "219.219.120.48";
-
     public static final String HEADER_NAME_REFERER = "Referer";
-    public static final String HEADER_VALUE_REFERER = "http://219.219.120.48/jiaowu/";
+    public static final String HEADER_VALUE_REFERER = "elite.nju.edu.cn/jiaowu/";
 
-    public static final String HEADER_NAME_AGENT = "User-Agent";
-    public static final String HEADER_VALUE_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko";
+    public static final String HEADER_NAME_HOST = "Host";
+    public static final String HEADER_VALUE_HOST =  "elite.nju.edu.cn";
 
+    public static final String HEADER_NAME_CONTENT_VALUE = "Content-Type";
+    public static final String HEADER_VALUE_CONTENT_VALUE = "application/x-www-form-urlencoded";
 
-    // 登录时的请求参数
-    public static final String LOGIN_BODY_NAME_USERNAME = "userName";
-
-    public static final String LOGIN_BODY_NAME_RETURNURL = "returnUrl";
-    public static final String LOGIN_BODY_VALUE_RETURNURL = "null";
-
-    public static final String LOGIN_BODY_NAME_PASSWORD = "password";
+    public static final String HEADER_NAME_USER_AGENT = "User-Agent";
+    public static final String HEADER_VALUE_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko";
 }

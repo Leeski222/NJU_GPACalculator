@@ -52,12 +52,11 @@ public class LoginPresenter implements LoginContract.Presenter{
 
                 if(response.isSuccessful()) {
                     Headers headers = response.headers();
-
                     String sessionID = headers.get("Set-Cookie").split(";")[0];
 
                     cookie = sessionID;
 
-                    Log.e("LogPresenter", sessionID);
+                    Log.e("LoginPresenter", sessionID);
 
                     byte[] bytes = new byte[0];
 
@@ -70,12 +69,13 @@ public class LoginPresenter implements LoginContract.Presenter{
                     final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
                     loginView.setValidateCodeImage(bitmap);
+                    loginView.refreshValidateCodeSuccess();
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                loginView.refreshValidateCodeFailed();
             }
 
             @Override
@@ -86,7 +86,8 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     @Override
-    public LoginResult login(String id, String password, String validateCode) {
+    public void login(String id, String password, String validateCode) {
+
         loginModel.login(new Observer<Response<ResponseBody>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -96,22 +97,21 @@ public class LoginPresenter implements LoginContract.Presenter{
             @Override
             public void onNext(Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
-                    Log.e("LoginPresenter", "SUCCESS");
                     String html = "";
                     try {
                         html = new String(response.body().bytes());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     Log.e("LoginPresenter", html);
                 } else {
-                    Log.e("LoginPresenter", "FAILED");
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                loginView.loginFailed(LoginResult.NETWORK_CONNECTION_ERROR);
             }
 
             @Override
@@ -119,8 +119,6 @@ public class LoginPresenter implements LoginContract.Presenter{
 
             }
         }, cookie, id, password, validateCode);
-
-        return null;
     }
 
 }

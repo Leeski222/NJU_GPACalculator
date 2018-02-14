@@ -5,4 +5,5 @@ package com.lee.nju_gpa_calculator.model.service;
  */
 
 public interface GPAService {
+    
 }

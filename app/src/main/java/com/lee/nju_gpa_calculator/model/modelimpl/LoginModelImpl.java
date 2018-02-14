@@ -2,6 +2,7 @@ package com.lee.nju_gpa_calculator.model.modelimpl;
 
 import com.lee.nju_gpa_calculator.model.modelinterface.LoginModel;
 import com.lee.nju_gpa_calculator.model.service.LoginService;
+import com.lee.nju_gpa_calculator.utils.CookieJarImpl;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,6 +24,7 @@ public class LoginModelImpl extends BaseModelImpl implements LoginModel {
 
     @Override
     public void getValidateCodeImage(Observer<Response<ResponseBody>> observer) {
+        CookieJarImpl.clearCookies();                      //清除上次获取验证码的相关缓存数据
         loginService.getValidateCodeImage()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

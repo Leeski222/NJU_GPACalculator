@@ -15,6 +15,7 @@ import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.LoginContract;
 import com.lee.nju_gpa_calculator.presenter.LoginPresenter;
 import com.lee.nju_gpa_calculator.utils.AppData;
+import com.lee.nju_gpa_calculator.utils.LoginResult;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -63,6 +64,39 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         validateCodeImageView.setImageBitmap(bitmap);
     }
 
+    @Override
+    public void refreshValidateCodeSuccess() {
+        Toast.makeText(this, "刷新成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void refreshValidateCodeFailed() {
+        Toast.makeText(this, "刷新失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginSuccess() {
+        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginFailed(LoginResult result) {
+        switch (result) {
+            case USERNAME_OR_PASSWORD_ERROR :
+                Toast.makeText(this, "学号或密码错误", Toast.LENGTH_SHORT).show();
+                break;
+            case VALIDATE_CODE_ERROR :
+                Toast.makeText(this, "验证码错误", Toast.LENGTH_SHORT).show();
+                break;
+            case VALIDATE_CODE_EXPIRED :
+                Toast.makeText(this, "验证码已过期", Toast.LENGTH_SHORT).show();
+                break;
+            case NETWORK_CONNECTION_ERROR :
+                Toast.makeText(this, "网络错误", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
     @OnClick(R.id.login_btn_login)
     public void login() {
         final String studentID = studentIDEditText.getText().toString();
@@ -73,8 +107,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         Toast.makeText(LoginActivity.this, "登录", Toast.LENGTH_LONG).show();
         loginPresenter.login(studentID, password, validateCode);
-        //发送请求
-//        new OkHttpUtil().confirmLogin(LoginActivity.this, userName, password);
+    }
+
+    @OnClick(R.id.login_btn_next)
+    public void refreshValidateCode() {
+        loginPresenter.getValidateCodeImage();
     }
 
     private void hideTitleBar() {

@@ -7,6 +7,7 @@ package com.lee.nju_gpa_calculator.utils;
 public enum  LoginResult {
     SUCCESS,
     NETWORK_CONNECTION_ERROR,
-    PASSWORD_ERROR,
+    USERNAME_OR_PASSWORD_ERROR,
+    VALIDATE_CODE_EXPIRED,
     VALIDATE_CODE_ERROR
 }

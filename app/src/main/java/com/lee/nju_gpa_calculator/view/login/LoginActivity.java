@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Created by 果宝 on 2018/2/3.
  */
 
-public class LoginActivity extends AppCompatActivity implements LoginContract.View{
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
     private Handler handler;
 

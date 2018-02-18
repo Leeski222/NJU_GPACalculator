@@ -16,6 +16,8 @@ import retrofit2.Response;
 
 public class LoginModelImpl extends BaseModelImpl implements LoginModel {
 
+    private final String returnUrl = "null";
+
     private LoginService loginService;
 
     public LoginModelImpl() {
@@ -34,7 +36,6 @@ public class LoginModelImpl extends BaseModelImpl implements LoginModel {
 
     @Override
     public void login(Observer<Response<ResponseBody>> observer, String cookie, String userName, String password, String validateCode) {
-        String returnUrl = "null";
         loginService.login(cookie, userName, password, validateCode, returnUrl)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

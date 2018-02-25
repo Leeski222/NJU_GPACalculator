@@ -21,7 +21,6 @@ public interface LoginService {
     @FormUrlEncoded
     @POST("login.do")
     Observable<Response<ResponseBody>> login(
-            @Header("Cookie") String cookie,
             @Field("userName") String studentID,
             @Field("password") String password,
             @Field("ValidateCode") String validateCode,

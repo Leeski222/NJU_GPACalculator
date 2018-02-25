@@ -214,9 +214,7 @@ public class OkHttpUtil {
      */
     private Request buildScoreRequest(String termNum){
         //生成request文件
-        Request request = new Request.Builder()
-                .cacheControl(CacheControl.FORCE_NETWORK)
-                .url(Constants.EDUCATION_SYSTEM_SCORE_URL + termNum)
+        Request request = new Request.Builder().url(Constants.EDUCATION_SYSTEM_SCORE_URL + termNum)
                 .build();
 
         return request;

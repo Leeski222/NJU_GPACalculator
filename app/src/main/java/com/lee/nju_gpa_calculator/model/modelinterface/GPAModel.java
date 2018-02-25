@@ -1,5 +1,6 @@
 package com.lee.nju_gpa_calculator.model.modelinterface;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -9,6 +10,10 @@ import retrofit2.Response;
  */
 
 public interface GPAModel {
+
+    void getAchievementList(Observer<Response<ResponseBody>> observer);
+
     void getAchievementInfoByTerm(Observer<Response<ResponseBody>> observer,
                                   String term);
+
 }

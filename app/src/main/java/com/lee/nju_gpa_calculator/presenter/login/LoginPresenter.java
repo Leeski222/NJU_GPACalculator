@@ -1,4 +1,4 @@
-package com.lee.nju_gpa_calculator.presenter;
+package com.lee.nju_gpa_calculator.presenter.login;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,8 +22,6 @@ import retrofit2.Response;
  */
 
 public class LoginPresenter implements LoginContract.Presenter{
-
-    private String cookie;
 
     private LoginModel loginModel;
     private LoginContract.View loginView;
@@ -52,11 +50,10 @@ public class LoginPresenter implements LoginContract.Presenter{
 
                 if(response.isSuccessful()) {
                     Headers headers = response.headers();
-                    String sessionID = headers.get("Set-Cookie").split(";")[0];
-
-                    cookie = sessionID;
-
-                    Log.e("LoginPresenter", sessionID);
+////                    String sessionID = headers.get("Set-Cookie").split(";")[0];
+//                    String sessionID = null;
+//
+//                    cookie = sessionID;
 
                     byte[] bytes = new byte[0];
 
@@ -98,6 +95,7 @@ public class LoginPresenter implements LoginContract.Presenter{
             public void onNext(Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     String html = "";
+
                     try {
                         html = new String(response.body().bytes());
                     } catch (IOException e) {
@@ -105,6 +103,8 @@ public class LoginPresenter implements LoginContract.Presenter{
                     }
 
                     Log.e("LoginPresenter", html);
+
+                    loginView.loginSuccess();
                 } else {
                 }
             }
@@ -118,7 +118,7 @@ public class LoginPresenter implements LoginContract.Presenter{
             public void onComplete() {
 
             }
-        }, cookie, id, password, validateCode);
+        }, id, password, validateCode);
     }
 
 }

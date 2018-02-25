@@ -22,11 +22,7 @@
         </activity>
 
         <activity
-            android:name=".activity.GPAActivity">
-        </activity>
-
-        <activity
-            android:name=".activity.InfoActivity">
+            android:name=".view.gpa.GPAActivity">
         </activity>
 
     </application>

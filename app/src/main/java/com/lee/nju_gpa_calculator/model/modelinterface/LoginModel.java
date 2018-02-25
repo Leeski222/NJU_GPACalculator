@@ -12,5 +12,5 @@ public interface LoginModel {
     void getValidateCodeImage(Observer<Response<ResponseBody>> observer);
 
     void login(Observer<Response<ResponseBody>> observer,
-               String cookie, String id, String password, String validateCode);
+               String id, String password, String validateCode);
 }

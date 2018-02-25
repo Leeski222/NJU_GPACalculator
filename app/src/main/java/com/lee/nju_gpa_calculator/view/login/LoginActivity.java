@@ -13,9 +13,10 @@ import android.widget.Toast;
 
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.LoginContract;
-import com.lee.nju_gpa_calculator.presenter.LoginPresenter;
+import com.lee.nju_gpa_calculator.presenter.login.LoginPresenter;
 import com.lee.nju_gpa_calculator.utils.AppData;
 import com.lee.nju_gpa_calculator.utils.LoginResult;
+import com.lee.nju_gpa_calculator.view.gpa.GPAActivity;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -26,6 +27,8 @@ import butterknife.OnClick;
  */
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+
+    private String grade;
 
     private Handler handler;
 
@@ -77,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void loginSuccess() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        GPAActivity.activityStart(this, grade);
     }
 
     @Override
@@ -103,9 +107,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         final String password = passwordEditText.getText().toString();
         final String validateCode = validateCodeEditText.getText().toString();
 
+        grade = studentID.substring(0, 2);
+
         saveData(studentID, password);
 
-        Toast.makeText(LoginActivity.this, "登录", Toast.LENGTH_LONG).show();
         loginPresenter.login(studentID, password, validateCode);
     }
 

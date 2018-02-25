@@ -2,7 +2,6 @@ package com.lee.nju_gpa_calculator.contract;
 
 import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
 import com.lee.nju_gpa_calculator.presenter.BasePresenter;
-import com.lee.nju_gpa_calculator.utils.LoginResult;
 import com.lee.nju_gpa_calculator.view.BaseView;
 
 /**
@@ -18,6 +17,8 @@ public interface GPAContract {
     }
 
     interface Presenter extends BasePresenter {
+        void getAchievementList();
+
         void getAchievementInfo();
     }
 

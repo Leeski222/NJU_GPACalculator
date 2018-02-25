@@ -1,12 +1,10 @@
-package com.lee.nju_gpa_calculator.presenter;
+package com.lee.nju_gpa_calculator.presenter.gpa;
 
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
 import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -20,24 +18,51 @@ import retrofit2.Response;
 
 public class GPAPresenter implements GPAContract.Presenter {
 
-    private String grade;
     private List<String> termList;
     private AchievementsVO achievementsVO;
 
     private GPAModel gpaModel;
     private GPAContract.View gpaView;
 
-    public GPAPresenter(GPAContract.View gpaView, String grade) {
+    public GPAPresenter(GPAContract.View gpaView) {
         this.gpaModel = ModelRepository.getInstance().getGPAModel();
         this.gpaView = gpaView;
-        this.grade = grade;
-        this.termList = getTermList(grade);
         this.achievementsVO = new AchievementsVO();
     }
 
     @Override
     public void start() {
-        getAchievementInfo();
+        getAchievementList();
+    }
+
+    @Override
+    public void getAchievementList() {
+        gpaModel.getAchievementList(new Observer<Response<ResponseBody>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Response<ResponseBody> response) {
+                termList = GPAHtmlParser.getTermList(response);
+                if(termList != null) {
+                    getAchievementInfo();
+                } else {
+                    gpaView.getAchievementsFailed();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                gpaView.getAchievementsFailed();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     @Override
@@ -51,6 +76,7 @@ public class GPAPresenter implements GPAContract.Presenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
+
                 }
 
                 @Override
@@ -66,17 +92,6 @@ public class GPAPresenter implements GPAContract.Presenter {
         }
 
         gpaView.setAchievementInfo(achievementsVO);
-    }
-
-    /**
-     * 根据年级转换出对应的学期表
-     * @param grade
-     * @return
-     */
-    private List getTermList(String grade) {
-        List<String> termList = new ArrayList();
-        termList.add("");
-        return termList;
     }
 
 }

@@ -14,17 +14,18 @@ import retrofit2.adapter.rxjava2.Result;
 
 public class HtmlParser {
 
-    protected static Pattern mPattern;
-
     protected static Matcher mMatcher;
 
     protected static String responseToString(Response<ResponseBody> response) {
-
         try {
             return response.body().string();
         } catch (IOException e) {
             return "";
         }
+    }
 
+    protected static Matcher regexMatching(String regex, String str) {
+        Pattern mPattern = Pattern.compile(regex);
+        return mPattern.matcher(str);
     }
 }

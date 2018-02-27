@@ -1,7 +1,5 @@
 package com.lee.nju_gpa_calculator.presenter;
 
-import android.util.Log;
-
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
@@ -10,7 +8,7 @@ import com.lee.nju_gpa_calculator.presenter.htmlparser.GPAHtmlParser;
 import com.lee.nju_gpa_calculator.utils.LogUtil;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -23,7 +21,7 @@ import retrofit2.Response;
 
 public class GPAPresenter implements GPAContract.Presenter {
 
-    private List<String> termList;
+    private Map<String, String> termMap;
     private AchievementsVO achievementsVO;
 
     private GPAModel gpaModel;
@@ -50,10 +48,9 @@ public class GPAPresenter implements GPAContract.Presenter {
 
             @Override
             public void onNext(Response<ResponseBody> response) {
-                termList = GPAHtmlParser.getTermList(response);
-                if(termList != null) {
-                    termList.add("20171");
-//                    getAchievementInfo();
+                if(response != null && response.isSuccessful()) {
+                    termMap = GPAHtmlParser.getTermsBy(response);
+                    getAchievementInfo();
                 } else {
                     gpaView.getAchievementsFailed();
                 }
@@ -73,7 +70,7 @@ public class GPAPresenter implements GPAContract.Presenter {
 
     @Override
     public void getAchievementInfo() {
-        for(String term : termList) {
+        for(String term : termMap.keySet()) {
             gpaModel.getAchievementInfoByTerm(new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -82,10 +79,10 @@ public class GPAPresenter implements GPAContract.Presenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-                    try {
-                        LogUtil.e("getAchievementInfo", response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(response != null && response.isSuccessful()) {
+                        GPAHtmlParser.getCoursesBy(response);
+                    } else {
+                        gpaView.getAchievementsFailed();
                     }
                 }
 

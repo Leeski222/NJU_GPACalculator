@@ -51,8 +51,6 @@ public class CourseVO {
             type = CourseType.Optional;
         } else if(category.equals("通识")) {
             type = CourseType.General;
-        } else if(category.equals("公共")) {
-            type = CourseType.Public;
         }
     }
 

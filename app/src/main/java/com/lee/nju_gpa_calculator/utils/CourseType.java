@@ -10,5 +10,4 @@ public enum CourseType {
     Core,       // 核心
     Optional,   // 选修
     General,    // 通识
-    Public      // 公共
 }

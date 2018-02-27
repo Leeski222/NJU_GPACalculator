@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.LoginContract;
-import com.lee.nju_gpa_calculator.presenter.login.LoginPresenter;
+import com.lee.nju_gpa_calculator.presenter.LoginPresenter;
 import com.lee.nju_gpa_calculator.utils.AppData;
 import com.lee.nju_gpa_calculator.utils.LoginResult;
 import com.lee.nju_gpa_calculator.view.gpa.GPAActivity;
@@ -55,6 +55,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         handler = new Handler();
         initData();
         loginPresenter.start();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loginPresenter.getValidateCodeImage();
     }
 
     @Override

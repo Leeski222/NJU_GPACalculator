@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
-import com.lee.nju_gpa_calculator.presenter.gpa.GPAPresenter;
+import com.lee.nju_gpa_calculator.presenter.GPAPresenter;
 
 import butterknife.ButterKnife;
 

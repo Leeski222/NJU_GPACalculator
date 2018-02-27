@@ -1,10 +1,15 @@
-package com.lee.nju_gpa_calculator.presenter.gpa;
+package com.lee.nju_gpa_calculator.presenter;
+
+import android.util.Log;
 
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
 import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
+import com.lee.nju_gpa_calculator.presenter.htmlparser.GPAHtmlParser;
+import com.lee.nju_gpa_calculator.utils.LogUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -47,7 +52,8 @@ public class GPAPresenter implements GPAContract.Presenter {
             public void onNext(Response<ResponseBody> response) {
                 termList = GPAHtmlParser.getTermList(response);
                 if(termList != null) {
-                    getAchievementInfo();
+                    termList.add("20171");
+//                    getAchievementInfo();
                 } else {
                     gpaView.getAchievementsFailed();
                 }
@@ -76,7 +82,11 @@ public class GPAPresenter implements GPAContract.Presenter {
 
                 @Override
                 public void onNext(Response<ResponseBody> response) {
-
+                    try {
+                        LogUtil.e("getAchievementInfo", response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override

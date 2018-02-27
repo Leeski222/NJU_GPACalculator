@@ -1,4 +1,4 @@
-package com.lee.nju_gpa_calculator.presenter.login;
+package com.lee.nju_gpa_calculator.presenter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

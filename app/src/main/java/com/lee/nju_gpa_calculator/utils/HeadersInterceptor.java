@@ -16,10 +16,10 @@ public class HeadersInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request().newBuilder()
                 .cacheControl(new CacheControl.Builder().noCache().build())
-//                .addHeader(Constants.HEADER_NAME_REFERER, Constants.HEADER_VALUE_REFERER)
-//                .addHeader(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
-//                .addHeader(Constants.HEADER_NAME_CONTENT_VALUE, Constants.HEADER_VALUE_CONTENT_VALUE)
-//                .addHeader(Constants.HEADER_NAME_USER_AGENT, Constants.HEADER_VALUE_USER_AGENT)
+                .addHeader(Constants.HEADER_NAME_REFERER, Constants.HEADER_VALUE_REFERER)
+                .addHeader(Constants.HEADER_NAME_HOST, Constants.HEADER_VALUE_HOST)
+                .addHeader(Constants.HEADER_NAME_CONTENT_VALUE, Constants.HEADER_VALUE_CONTENT_VALUE)
+                .addHeader(Constants.HEADER_NAME_USER_AGENT, Constants.HEADER_VALUE_USER_AGENT)
                 .build();
         return chain.proceed(request);
     }

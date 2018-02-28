@@ -49,11 +49,6 @@ public class LoginPresenter implements LoginContract.Presenter{
                 Log.e("LoginPresenter", "getValidateImage");
 
                 if(response.isSuccessful()) {
-                    Headers headers = response.headers();
-////                    String sessionID = headers.get("Set-Cookie").split(";")[0];
-//                    String sessionID = null;
-//
-//                    cookie = sessionID;
 
                     byte[] bytes = new byte[0];
 

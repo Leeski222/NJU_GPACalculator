@@ -4,10 +4,14 @@ import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
 import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
+import com.lee.nju_gpa_calculator.model.vopo.CourseVO;
+import com.lee.nju_gpa_calculator.model.vopo.TermVO;
 import com.lee.nju_gpa_calculator.presenter.htmlparser.GPAHtmlParser;
 import com.lee.nju_gpa_calculator.utils.LogUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observer;
@@ -22,7 +26,7 @@ import retrofit2.Response;
 public class GPAPresenter implements GPAContract.Presenter {
 
     private Map<String, String> termMap;
-    private AchievementsVO achievementsVO;
+    private List<TermVO> termVOs;
 
     private GPAModel gpaModel;
     private GPAContract.View gpaView;
@@ -30,7 +34,7 @@ public class GPAPresenter implements GPAContract.Presenter {
     public GPAPresenter(GPAContract.View gpaView) {
         this.gpaModel = ModelRepository.getInstance().getGPAModel();
         this.gpaView = gpaView;
-        this.achievementsVO = new AchievementsVO();
+        this.termVOs = new ArrayList();
     }
 
     @Override
@@ -70,7 +74,7 @@ public class GPAPresenter implements GPAContract.Presenter {
 
     @Override
     public void getAchievementInfo() {
-        for(String term : termMap.keySet()) {
+        for(final String term : termMap.keySet()) {
             gpaModel.getAchievementInfoByTerm(new Observer<Response<ResponseBody>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -80,7 +84,9 @@ public class GPAPresenter implements GPAContract.Presenter {
                 @Override
                 public void onNext(Response<ResponseBody> response) {
                     if(response != null && response.isSuccessful()) {
-                        GPAHtmlParser.getCoursesBy(response);
+                        String termName = termMap.get(term);
+                        List<CourseVO> courseVOList = GPAHtmlParser.getCoursesBy(response);
+                        termVOs.add(new TermVO(termName, courseVOList));
                     } else {
                         gpaView.getAchievementsFailed();
                     }
@@ -98,7 +104,7 @@ public class GPAPresenter implements GPAContract.Presenter {
             }, term);
         }
 
-        gpaView.setAchievementInfo(achievementsVO);
+        gpaView.setAchievementInfo(termVOs);
     }
 
 }

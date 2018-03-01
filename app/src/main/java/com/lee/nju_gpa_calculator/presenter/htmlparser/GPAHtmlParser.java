@@ -1,7 +1,6 @@
 package com.lee.nju_gpa_calculator.presenter.htmlparser;
 
 import com.lee.nju_gpa_calculator.model.vopo.CourseVO;
-import com.lee.nju_gpa_calculator.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -26,8 +25,6 @@ public class GPAHtmlParser extends HtmlParser {
         Map<String, String> termMap = new LinkedHashMap();
 
         String html = responseToString(response);
-
-        LogUtil.e("GPAHtmlParser", html);
 
         mMatcher = regexMatching(termRegex, html);
 
@@ -62,6 +59,9 @@ public class GPAHtmlParser extends HtmlParser {
                 String EnglishName = mMatcher.group(2).trim();
                 String category = mMatcher.group(3).trim();
                 String credit = mMatcher.group(4).trim();
+                if(credit.equals("")) {
+                    credit = "无";
+                }
                 String finalScore = mMatcher.group(6);
 
                 CourseVO courseVO = new CourseVO();

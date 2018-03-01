@@ -55,34 +55,34 @@ public class CourseAdapter extends BaseAdapter {
         //将布局文件转化为View对象
         View view = layoutInflater.inflate(R.layout.item_course, null);
 
-        //找到item布局文件中对应的控件
-        CheckBox selectCB = (CheckBox) view.findViewById(R.id.cb_selected);
-        TextView subjectTV = (TextView) view.findViewById(R.id.tv_subject);
-        TextView categoryTV = (TextView) view.findViewById(R.id.tv_category);
-        TextView creditTV = (TextView) view.findViewById(R.id.tv_credit);
-        TextView finalScoreTV = (TextView) view.findViewById(R.id.tv_final_score);
-
-        //获取相应索引的ItemBean对象
-        final Course course = courseList.get(position);
-
-        //设置控件的对应属性值
-        subjectTV.setText(course.getSubject());
-        categoryTV.setText(course.getCategory());
-        creditTV.setText(" 学分: " + course.getCredit());
-        finalScoreTV.setText("总评: " + course.getFinalScore());
-
-        if(course.getCredit().equals("") || course.getFinalScore().equals("无成绩")){
-            selectCB.setClickable(false);
-        }
-
-        Boolean isCheck = selectSubject.get(course.getSubject());
-        if(isCheck != null && isCheck.equals(Boolean.TRUE)) {
-            selectCB.setChecked(true);
-        }
-
-        selectCB.setFocusable(false);
-        this.setCBListener(selectCB, course);
-
+//        //找到item布局文件中对应的控件
+//        CheckBox selectCB = (CheckBox) view.findViewById(R.id.cb_selected);
+//        TextView subjectTV = (TextView) view.findViewById(R.id.tv_subject);
+//        TextView categoryTV = (TextView) view.findViewById(R.id.tv_category);
+//        TextView creditTV = (TextView) view.findViewById(R.id.tv_credit);
+//        TextView finalScoreTV = (TextView) view.findViewById(R.id.tv_final_score);
+//
+//        //获取相应索引的ItemBean对象
+//        final Course course = courseList.get(position);
+//
+//        //设置控件的对应属性值
+//        subjectTV.setText(course.getSubject());
+//        categoryTV.setText(course.getCategory());
+//        creditTV.setText(" 学分: " + course.getCredit());
+//        finalScoreTV.setText("总评: " + course.getFinalScore());
+//
+//        if(course.getCredit().equals("") || course.getFinalScore().equals("无成绩")){
+//            selectCB.setClickable(false);
+//        }
+//
+//        Boolean isCheck = selectSubject.get(course.getSubject());
+//        if(isCheck != null && isCheck.equals(Boolean.TRUE)) {
+//            selectCB.setChecked(true);
+//        }
+//
+//        selectCB.setFocusable(false);
+//        this.setCBListener(selectCB, course);
+//
         return view;
     }
 

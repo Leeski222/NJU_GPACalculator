@@ -34,20 +34,33 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     private LoginContract.Presenter loginPresenter;
 
-    @BindView(R.id.login_et_studentID) EditText studentIDEditText;
-    @BindView(R.id.login_et_password) EditText passwordEditText;
-    @BindView(R.id.login_iv_validate_code) ImageView validateCodeImageView;
-    @BindView(R.id.login_et_validate_code) EditText validateCodeEditText;
-    @BindView(R.id.login_btn_next) Button nextValidateButton;
-    @BindView(R.id.login_btn_login) Button loginButton;
+    @BindView(R.id.login_et_studentID)
+    EditText studentIDEditText;
 
-    @BindView(R.id.login_cb_save_id) CheckBox saveIDCheckBox;
-    @BindView(R.id.login_cb_save_password) CheckBox savePasswordCheckBox;
+    @BindView(R.id.login_et_password)
+    EditText passwordEditText;
+
+    @BindView(R.id.login_iv_validate_code)
+    ImageView validateCodeImageView;
+
+    @BindView(R.id.login_et_validate_code)
+    EditText validateCodeEditText;
+
+    @BindView(R.id.login_btn_next)
+    Button nextValidateButton;
+
+    @BindView(R.id.login_btn_login)
+    Button loginButton;
+
+    @BindView(R.id.login_cb_save_id)
+    CheckBox saveIDCheckBox;
+
+    @BindView(R.id.login_cb_save_password)
+    CheckBox savePasswordCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideTitleBar();
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -123,16 +136,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @OnClick(R.id.login_btn_next)
     public void refreshValidateCode() {
         loginPresenter.getValidateCodeImage();
-    }
-
-    private void hideTitleBar() {
-        Window window = getWindow();
-
-        int noTitle = Window.FEATURE_NO_TITLE;
-        this.requestWindowFeature(noTitle);
-
-//        int fullscreen = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-//        window.setFlags(fullscreen, fullscreen);
     }
 
     /**

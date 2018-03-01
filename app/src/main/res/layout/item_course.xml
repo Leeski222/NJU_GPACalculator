@@ -1,58 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/cb_selected"
-        android:checked="false"
-        android:layout_alignTop="@+id/tv_final_score"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/course_cb_select"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/course_aftv_subject"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:maxLines="2"
+                android:text="毛泽东思想和中国特色社会主义理论体系概论（实践部分）"
+                android:textSize="40sp"
+                android:textColor="@color/colorBlack"
+                autofit:minTextSize="12sp"/>
+
+            <TextView
+                android:id="@+id/course_tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_gravity="center"
+                android:background="@drawable/tv_round"
+                android:textColor="@color/colorWhite"
+                android:text="   通修   "
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/course_tv_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:text="0.0学分"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+       <me.grantland.widget.AutofitTextView
+           android:id="@+id/course_aftv_ename"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight="1"
+           android:layout_marginLeft="4dp"
+           android:maxLines="2"
+           android:text="Mao Zedong’s Thought and the Theoretical System of Socialism with Chinese Characteristics"
+           android:textSize="40sp"
+           android:textColor="@color/colorBlack"
+           autofit:minTextSize="8sp"/>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="科目"
-        android:textColor="@android:color/black"
-        android:id="@+id/tv_subject"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tv_final_score"
-        android:layout_toEndOf="@+id/tv_final_score" />
+        android:id="@+id/course_tv_score"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="0.0"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp"
+        android:gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="类型"
-        android:textColor="@android:color/black"
-        android:id="@+id/tv_category"
-        android:layout_below="@+id/tv_subject"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="学分："
-        android:textColor="@android:color/black"
-        android:id="@+id/tv_credit"
-        android:layout_alignTop="@+id/tv_final_score"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="总评："
-        android:textColor="@android:color/black"
-        android:id="@+id/tv_final_score"
-        android:layout_below="@+id/tv_subject"
-        android:layout_toRightOf="@+id/cb_selected"
-        android:layout_toEndOf="@+id/cb_selected" />
-
-</RelativeLayout>
+</LinearLayout>

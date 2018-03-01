@@ -4,31 +4,163 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/init_score"
-        android:id="@+id/tv_gpa_area"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="24dp"
+        android:layout_weight="0"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
+        <TextView
+            android:id="@+id/gpa_tv_training"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@drawable/tv_round"
+            android:textColor="@color/colorWhite"
+            android:text="   通修   "
+            android:gravity="center"
+            android:clickable="true"/>
 
-    <Button
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/gpa_tv_platform"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@drawable/tv_round"
+            android:textColor="@color/colorWhite"
+            android:text="   平台   "
+            android:gravity="center"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/gpa_tv_core"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@drawable/tv_round"
+            android:textColor="@color/colorWhite"
+            android:text="   核心   "
+            android:gravity="center"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/gpa_tv_optional"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@drawable/tv_round"
+            android:textColor="@color/colorWhite"
+            android:text="   选修   "
+            android:gravity="center"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/gpa_tv_general"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@drawable/tv_round"
+            android:textColor="@color/colorWhite"
+            android:text="   通识   "
+            android:gravity="center"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_login"
-        android:textColor="@android:color/white"
-        android:text="@string/calculate_button_name"
-        android:id="@+id/bt_calculate"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="0.8dp"
+        android:layout_weight="0"
+        android:background="@color/colorBlack"/>
 
     <ListView
         android:id="@+id/lv_course"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:divider="#4D67FA"
         android:dividerHeight="1dp" >
     </ListView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_weight="0"
+        android:background="@color/colorBlack"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="选中"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/gpa_tv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="共0门课程，0个学分"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/gpa_tv_grade_point"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:text="0.000"
+            android:textSize="24dp"
+            android:textColor="@color/colorBlack"/>
+
+        <Button
+            android:id="@+id/gpa_btn_calculate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="计算"/>
+
+    </LinearLayout>
 
 </LinearLayout>

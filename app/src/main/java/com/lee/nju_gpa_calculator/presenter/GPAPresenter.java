@@ -1,15 +1,14 @@
 package com.lee.nju_gpa_calculator.presenter;
 
+import android.util.Log;
+
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
-import com.lee.nju_gpa_calculator.model.vopo.AchievementsVO;
 import com.lee.nju_gpa_calculator.model.vopo.CourseVO;
 import com.lee.nju_gpa_calculator.model.vopo.TermVO;
 import com.lee.nju_gpa_calculator.presenter.htmlparser.GPAHtmlParser;
-import com.lee.nju_gpa_calculator.utils.LogUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +73,8 @@ public class GPAPresenter implements GPAContract.Presenter {
 
     @Override
     public void getAchievementInfo() {
+        final int sum = termMap.size();
+
         for(final String term : termMap.keySet()) {
             gpaModel.getAchievementInfoByTerm(new Observer<Response<ResponseBody>>() {
                 @Override
@@ -87,6 +88,7 @@ public class GPAPresenter implements GPAContract.Presenter {
                         String termName = termMap.get(term);
                         List<CourseVO> courseVOList = GPAHtmlParser.getCoursesBy(response);
                         termVOs.add(new TermVO(termName, courseVOList));
+                        Log.e("getAchievementInfo", termVOs.size() + "");
                     } else {
                         gpaView.getAchievementsFailed();
                     }
@@ -99,12 +101,13 @@ public class GPAPresenter implements GPAContract.Presenter {
 
                 @Override
                 public void onComplete() {
-
+                    if(termVOs.size() == sum) {
+                        gpaView.setAchievementInfo(termVOs);
+                    }
                 }
             }, term);
         }
 
-        gpaView.setAchievementInfo(termVOs);
     }
 
 }

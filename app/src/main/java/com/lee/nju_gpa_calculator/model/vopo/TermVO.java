@@ -1,5 +1,7 @@
 package com.lee.nju_gpa_calculator.model.vopo;
 
+import com.lee.nju_gpa_calculator.adapter.model.Course;
+
 import java.util.List;
 
 /**
@@ -21,7 +23,23 @@ public class TermVO {
         return termName;
     }
 
-    public List<CourseVO> getCourseList() {
-        return this.courseVOList;
+    public int getCourseNumber() {
+        return courseVOList.size();
     }
+
+    public int getCreditSum() {
+        int sum = 0;
+        for(CourseVO courseVO : courseVOList) {
+            String credit = courseVO.getCredit();
+            if(!credit.equals("无")) {
+                sum = sum + Integer.parseInt(credit);
+            }
+        }
+        return sum;
+    }
+
+    public List<CourseVO> getCourseList() {
+        return courseVOList;
+    }
+
 }

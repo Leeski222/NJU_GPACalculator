@@ -7,6 +7,7 @@ import android.util.Log;
 import com.lee.nju_gpa_calculator.contract.LoginContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.LoginModel;
+import com.lee.nju_gpa_calculator.presenter.htmlparser.LoginHtmParser;
 import com.lee.nju_gpa_calculator.utils.LoginResult;
 
 import java.io.IOException;
@@ -88,19 +89,19 @@ public class LoginPresenter implements LoginContract.Presenter{
 
             @Override
             public void onNext(Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
-                    String html = "";
+                if(response != null && response.isSuccessful()) {
 
-                    try {
-                        html = new String(response.body().bytes());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    LoginResult result = LoginHtmParser.getLoginResultBy(response);
+
+                    if(result == LoginResult.SUCCESS) {
+                        loginView.loginSuccess();
+                    } else {
+                        loginView.loginFailed(result);
                     }
 
-                    Log.e("LoginPresenter", html);
-
-                    loginView.loginSuccess();
                 } else {
+
+                    loginView.loginFailed(LoginResult.NETWORK_CONNECTION_ERROR);
                 }
             }
 

@@ -75,12 +75,12 @@ public class GPAActivity extends AppCompatActivity{
 
         handler = new Handler();
 
-        resultArea = (TextView) findViewById(R.id.tv_gpa_area);
+//        resultArea = (TextView) findViewById(R.id.tv_gpa_area);
 
         courseListView = (ListView) findViewById(R.id.lv_course);
         courseListView.setAdapter(new CourseAdapter(this, courseList));
 
-        calculateButton = (Button) findViewById(R.id.bt_calculate);
+//        calculateButton = (Button) findViewById(R.id.bt_calculate);
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

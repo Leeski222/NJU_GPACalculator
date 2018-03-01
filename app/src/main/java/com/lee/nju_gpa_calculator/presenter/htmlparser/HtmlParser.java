@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import retrofit2.adapter.rxjava2.Result;
 
 /**
  * Created by 果宝 on 2018/2/25.

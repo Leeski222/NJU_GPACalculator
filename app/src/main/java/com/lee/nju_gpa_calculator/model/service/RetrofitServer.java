@@ -3,11 +3,9 @@ package com.lee.nju_gpa_calculator.model.service;
 import android.util.Log;
 
 import com.lee.nju_gpa_calculator.utils.CookieJarImpl;
-import com.lee.nju_gpa_calculator.utils.HeadersInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.CacheControl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -28,7 +26,6 @@ public class RetrofitServer {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.cookieJar(new CookieJarImpl());
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-//        httpClientBuilder.addInterceptor(new HeadersInterceptor());
 
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())

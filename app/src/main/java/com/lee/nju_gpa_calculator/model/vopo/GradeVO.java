@@ -8,7 +8,7 @@ import com.lee.nju_gpa_calculator.utils.CourseType;
  * 保存单门学科成绩等相关属性的实体类
  *
  */
-public class CourseVO {
+public class GradeVO {
 
     private String subject;         // 课程中文名
     private String EnglishName;     // 课程英文名
@@ -70,7 +70,7 @@ public class CourseVO {
         this.credit = credit;
     }
 
-    private CourseType getType() {
+    public CourseType getType() {
         return type;
     }
 }

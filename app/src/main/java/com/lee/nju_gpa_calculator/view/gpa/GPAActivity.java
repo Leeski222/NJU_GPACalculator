@@ -6,6 +6,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,8 @@ import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.vopo.TermVO;
 import com.lee.nju_gpa_calculator.presenter.GPAPresenter;
+import com.lee.nju_gpa_calculator.utils.GPACounter;
+import com.lee.nju_gpa_calculator.view.gpa.adapter.GradeExpandableListAdapter;
 
 import java.util.List;
 
@@ -31,6 +35,9 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     private String grade;
 
     private GPAContract.Presenter gpaPresenter;
+
+    @BindView(R.id.gpa_exlv_grade)
+    ExpandableListView gradeExpandableListView;
 
     @BindView(R.id.gpa_tv_training)
     TextView trainingText;
@@ -107,6 +114,23 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
         isSelectGeneral = !isSelectGeneral;
     }
 
+    @BindView(R.id.gpa_btn_calculate)
+    Button calculateButton;
+    @BindView(R.id.gpa_tv_select)
+    TextView selectInfoTextView;
+    @BindView(R.id.gpa_tv_grade_point)
+    TextView gpaTextView;
+
+    @OnClick(R.id.gpa_btn_calculate)
+    public void calculate() {
+        GPACounter mGPACounter = new GPACounter(GradeExpandableListAdapter.selectGrades);
+        final String courseNum = mGPACounter.getCourseNum() + "";
+        final String sumCredit = mGPACounter.getSumCredit() + "";
+        final String gpa = mGPACounter.getGPA();
+        selectInfoTextView.setText("共" + courseNum +"门课程，" + sumCredit + "个学分");
+        gpaTextView.setText(gpa);
+    }
+
     public static void activityStart(Activity activity, String grade) {
         Intent intent = new Intent(activity, GPAActivity.class);
         intent.putExtra(ARG_GRADE, grade);
@@ -124,7 +148,6 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
         gpaPresenter.start();
 
         this.initTextBackground();
-
     }
 
     @Override
@@ -134,10 +157,7 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
 
     @Override
     public void setAchievementInfo(List<TermVO> termVOs) {
-        Log.e("setAchievementInfo", termVOs.size() + "");
-        for(TermVO termVO : termVOs) {
-            Log.e("setAchievementInfo", termVO.getTermName());
-        }
+        gradeExpandableListView.setAdapter(new GradeExpandableListAdapter(termVOs, GPAActivity.this));
     }
 
     @Override

@@ -1,11 +1,14 @@
 package com.lee.nju_gpa_calculator.presenter.htmlparser;
 
-import com.lee.nju_gpa_calculator.model.vopo.CourseVO;
+import android.util.Log;
+
+import com.lee.nju_gpa_calculator.model.vopo.GradeVO;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -22,7 +25,7 @@ public class GPAHtmlParser extends HtmlParser {
             "</tr>";
 
     public static Map<String, String> getTermsBy (Response<ResponseBody> response) {
-        Map<String, String> termMap = new LinkedHashMap();
+        Map<String, String> termMap = new LinkedHashMap<>();
 
         String html = responseToString(response);
 
@@ -32,6 +35,10 @@ public class GPAHtmlParser extends HtmlParser {
             String termCode = mMatcher.group(1);
             String termName = mMatcher.group(2);
             termMap.put(termCode, termName);
+        }
+
+        for(String terms : termMap.keySet()) {
+            Log.e("getTermsBy", terms);
         }
 
         return termMap;
@@ -46,9 +53,9 @@ public class GPAHtmlParser extends HtmlParser {
                     "<ul\\s*?style=\"color:(black|red)\"\\s*?>\\s*?(\\S*?)\\s*?</ul>\\s*?" +
             "</td>";
 
-    public static List<CourseVO> getCoursesBy (Response<ResponseBody> response) {
+    public static List<GradeVO> getCoursesBy (Response<ResponseBody> response) {
 
-        List<CourseVO> courseVOList = new ArrayList();
+        List<GradeVO> gradeVOList = new ArrayList();
 
         String html = responseToString(response);
 
@@ -64,16 +71,16 @@ public class GPAHtmlParser extends HtmlParser {
                 }
                 String finalScore = mMatcher.group(6);
 
-                CourseVO courseVO = new CourseVO();
-                courseVO.setSubject(subject);
-                courseVO.setEnglishName(EnglishName);
-                courseVO.setCategory(category);
-                courseVO.setCredit(credit);
-                courseVO.setFinalScore(finalScore);
+                GradeVO gradeVO = new GradeVO();
+                gradeVO.setSubject(subject);
+                gradeVO.setEnglishName(EnglishName);
+                gradeVO.setCategory(category);
+                gradeVO.setCredit(credit);
+                gradeVO.setFinalScore(finalScore);
 
-                courseVOList.add(courseVO);
+                gradeVOList.add(gradeVO);
         }
 
-        return courseVOList;
+        return gradeVOList;
     }
 }

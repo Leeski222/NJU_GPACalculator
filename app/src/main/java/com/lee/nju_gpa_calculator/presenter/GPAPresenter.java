@@ -5,7 +5,7 @@ import android.util.Log;
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
 import com.lee.nju_gpa_calculator.model.modelinterface.GPAModel;
-import com.lee.nju_gpa_calculator.model.vopo.CourseVO;
+import com.lee.nju_gpa_calculator.model.vopo.GradeVO;
 import com.lee.nju_gpa_calculator.model.vopo.TermVO;
 import com.lee.nju_gpa_calculator.presenter.htmlparser.GPAHtmlParser;
 
@@ -53,6 +53,11 @@ public class GPAPresenter implements GPAContract.Presenter {
             public void onNext(Response<ResponseBody> response) {
                 if(response != null && response.isSuccessful()) {
                     termMap = GPAHtmlParser.getTermsBy(response);
+
+                    for(String term : termMap.keySet()) {
+                        Log.e("onNext", term);
+                    }
+
                     getAchievementInfo();
                 } else {
                     gpaView.getAchievementsFailed();
@@ -86,9 +91,8 @@ public class GPAPresenter implements GPAContract.Presenter {
                 public void onNext(Response<ResponseBody> response) {
                     if(response != null && response.isSuccessful()) {
                         String termName = termMap.get(term);
-                        List<CourseVO> courseVOList = GPAHtmlParser.getCoursesBy(response);
-                        termVOs.add(new TermVO(termName, courseVOList));
-                        Log.e("getAchievementInfo", termVOs.size() + "");
+                        List<GradeVO> gradeVOList = GPAHtmlParser.getCoursesBy(response);
+                        termVOs.add(new TermVO(termName, gradeVOList));
                     } else {
                         gpaView.getAchievementsFailed();
                     }
@@ -102,12 +106,32 @@ public class GPAPresenter implements GPAContract.Presenter {
                 @Override
                 public void onComplete() {
                     if(termVOs.size() == sum) {
-                        gpaView.setAchievementInfo(termVOs);
+                        gpaView.setAchievementInfo( termSorts(termVOs) );
                     }
                 }
             }, term);
         }
+    }
 
+    private List<TermVO> termSorts(List<TermVO> termVOs) {
+        List<TermVO> sortList = new ArrayList<>(termVOs);
+
+        for(int i = 0; i < sortList.size() - 1; i ++) {
+            for(int j = 0; j < sortList.size() - i - 1; j ++) {
+                TermVO term1 = sortList.get(j);
+                String t1 = term1.getTermName();
+
+                TermVO term2 = sortList.get(j + 1);
+                String t2 = term2.getTermName();
+
+                if(t1.compareTo(t2) < 0) {
+                    sortList.set(j, term2);
+                    sortList.set(j+1, term1);
+                }
+            }
+        }
+
+        return sortList;
     }
 
 }

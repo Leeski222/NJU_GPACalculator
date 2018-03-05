@@ -63,6 +63,7 @@ public class GPAPresenter implements GPAContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
+                gpaView.hideLoading();
                 gpaView.getAchievementsFailed();
             }
 

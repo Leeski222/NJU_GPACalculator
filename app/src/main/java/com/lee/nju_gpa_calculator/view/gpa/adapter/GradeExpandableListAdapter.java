@@ -2,12 +2,12 @@ package com.lee.nju_gpa_calculator.view.gpa.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -25,7 +25,7 @@ import me.grantland.widget.AutofitTextView;
  * Created by 果宝 on 2018/3/2.
  */
 
-public class GradeExpandableListAdapter extends BaseExpandableListAdapter implements ExpandableListView.OnChildClickListener {
+public class GradeExpandableListAdapter extends BaseExpandableListAdapter implements ExpandableListView.OnChildClickListener{
     private List<TermVO> termData;
 
     private static List<GradeVO> selectGrades = new ArrayList<>();
@@ -115,7 +115,7 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter implem
     //取得显示给定分组给定子位置的数据用的视图
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ViewHolderItem itemHolder;
+        final ViewHolderItem itemHolder;
 
         final GradeVO gradeVO = termData.get(groupPosition).getCourseList().get(childPosition);
 
@@ -130,17 +130,6 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter implem
             itemHolder.creditTextView = (TextView) convertView.findViewById(R.id.grade_tv_credit);
             itemHolder.enameAutofitTextView = (AutofitTextView) convertView.findViewById(R.id.grade_aftv_ename);
             itemHolder.finalScoreTextView = (TextView) convertView.findViewById(R.id.grade_tv_score);
-
-            itemHolder.selectCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-
-                    } else {
-
-                    }
-                }
-            });
 
             convertView.setTag(itemHolder);
         } else {

@@ -47,7 +47,6 @@ public class LoginPresenter implements LoginContract.Presenter{
 
             @Override
             public void onNext(Response<ResponseBody> response) {
-                Log.e("LoginPresenter", "getValidateImage");
 
                 if(response.isSuccessful()) {
 

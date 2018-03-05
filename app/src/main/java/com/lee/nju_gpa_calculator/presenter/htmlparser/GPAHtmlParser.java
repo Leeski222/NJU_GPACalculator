@@ -37,10 +37,6 @@ public class GPAHtmlParser extends HtmlParser {
             termMap.put(termCode, termName);
         }
 
-        for(String terms : termMap.keySet()) {
-            Log.e("getTermsBy", terms);
-        }
-
         return termMap;
     }
 
@@ -65,11 +61,16 @@ public class GPAHtmlParser extends HtmlParser {
                 String subject = mMatcher.group(1).trim();
                 String EnglishName = mMatcher.group(2).trim();
                 String category = mMatcher.group(3).trim();
+
                 String credit = mMatcher.group(4).trim();
                 if(credit.equals("")) {
                     credit = "无";
                 }
+
                 String finalScore = mMatcher.group(6);
+                if(finalScore.equals("无成绩")) {
+                    finalScore = "0.0";
+                }
 
                 GradeVO gradeVO = new GradeVO();
                 gradeVO.setSubject(subject);

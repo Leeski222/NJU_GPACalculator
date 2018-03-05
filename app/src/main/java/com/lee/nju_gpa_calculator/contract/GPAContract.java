@@ -13,6 +13,10 @@ import java.util.List;
 public interface GPAContract {
 
     interface View extends BaseView<GPAContract.Presenter> {
+        void showLoading();
+
+        void hideLoading();
+
         void setAchievementInfo(List<TermVO> termVOs);
 
         void getAchievementsFailed();

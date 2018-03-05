@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +20,13 @@ import com.lee.nju_gpa_calculator.utils.GPACounter;
 import com.lee.nju_gpa_calculator.view.gpa.adapter.GradeExpandableListAdapter;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.zhanghai.android.materialprogressbar.IndeterminateProgressDrawable;
 
 /**
  * Created by 果宝 on 2018/2/18.
@@ -33,85 +38,26 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
 
     private String grade;
 
+    private boolean isExiting = false;
+
     private GPAContract.Presenter gpaPresenter;
+
+    @BindView(R.id.gpa_progress_bar)
+    ProgressBar mProgressBar;
 
     @BindView(R.id.gpa_exlv_grade)
     ExpandableListView gradeExpandableListView;
 
     @BindView(R.id.gpa_tv_training)
     TextView trainingText;
-    private boolean isSelectTraining;
-
-    @OnClick(R.id.gpa_tv_training)
-    public void selectTraining() {
-        if(isSelectTraining) {
-            trainingText.setBackground(getResources().getDrawable(R.drawable.tv_round_select));
-        } else {
-            trainingText.setBackground(getResources().getDrawable(R.drawable.tv_round));
-        }
-        this.initTextBackground();
-        isSelectTraining = !isSelectTraining;
-    }
-
     @BindView(R.id.gpa_tv_platform)
     TextView platformText;
-    private boolean isSelectPlatform;
-
-    @OnClick(R.id.gpa_tv_platform)
-    public void selectPlatform() {
-        if(isSelectPlatform) {
-            platformText.setBackground(getResources().getDrawable(R.drawable.tv_round_select));
-        } else {
-            platformText.setBackground(getResources().getDrawable(R.drawable.tv_round));
-        }
-        this.initTextBackground();
-        isSelectPlatform = !isSelectPlatform;
-    }
-
     @BindView(R.id.gpa_tv_core)
     TextView coreText;
-    private boolean isSelectCore;
-
-    @OnClick(R.id.gpa_tv_core)
-    public void selectCore() {
-        if(isSelectCore) {
-            coreText.setBackground(getResources().getDrawable(R.drawable.tv_round_select));
-        } else {
-            coreText.setBackground(getResources().getDrawable(R.drawable.tv_round));
-        }
-        this.initTextBackground();
-        isSelectCore = !isSelectCore;
-    }
-
     @BindView(R.id.gpa_tv_optional)
     TextView optionalText;
-    private boolean isSelectOptional;
-
-    @OnClick(R.id.gpa_tv_optional)
-    public void selectOptional() {
-        if(isSelectOptional) {
-            optionalText.setBackground(getResources().getDrawable(R.drawable.tv_round_select));
-        } else {
-            optionalText.setBackground(getResources().getDrawable(R.drawable.tv_round));
-        }
-        this.initTextBackground();
-        isSelectOptional = !isSelectOptional;
-    }
-
     @BindView(R.id.gpa_tv_general)
     TextView generalText;
-    private boolean isSelectGeneral;
-
-    @OnClick(R.id.gpa_tv_general)
-    public void selectGeneral() {
-        if(isSelectGeneral) {
-            generalText.setBackground(getResources().getDrawable(R.drawable.tv_round_select));
-        } else {
-            generalText.setBackground(getResources().getDrawable(R.drawable.tv_round));
-        }
-        this.initTextBackground();
-        isSelectGeneral = !isSelectGeneral;
-    }
 
     @BindView(R.id.gpa_btn_calculate)
     Button calculateButton;
@@ -142,6 +88,7 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
         this.setContentView(R.layout.activity_gpa);
         ButterKnife.bind(this);
 
+        mProgressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));
         grade = getIntent().getStringExtra(ARG_GRADE);
         gpaPresenter = new GPAPresenter(this);
         gpaPresenter.start();
@@ -156,8 +103,46 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     }
 
     @Override
+    public void onBackPressed() {
+        exitBy2Click();
+    }
+
+    /**
+     * TimerTask倒计时实现exit by 2 clicks
+     */
+    private void exitBy2Click() {
+        Timer tExit;
+        Toast exitToast = Toast.makeText(this, "再按一次退出登录", Toast.LENGTH_SHORT);
+        if (!isExiting) {
+            isExiting = true; // 准备退出
+            exitToast.show();
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExiting = false; // 取消退出
+                }
+            }, 1500); // 如果1.5秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            exitToast.cancel();
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void setPresenter(GPAContract.Presenter presenter) {
         this.gpaPresenter = presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override

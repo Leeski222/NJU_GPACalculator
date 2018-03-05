@@ -1,6 +1,5 @@
 package com.lee.nju_gpa_calculator.presenter;
 
-import android.util.Log;
 
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.ModelRepository;
@@ -51,15 +50,13 @@ public class GPAPresenter implements GPAContract.Presenter {
 
             @Override
             public void onNext(Response<ResponseBody> response) {
+                gpaView.showLoading();
                 if(response != null && response.isSuccessful()) {
                     termMap = GPAHtmlParser.getTermsBy(response);
 
-                    for(String term : termMap.keySet()) {
-                        Log.e("onNext", term);
-                    }
-
                     getAchievementInfo();
                 } else {
+                    gpaView.hideLoading();
                     gpaView.getAchievementsFailed();
                 }
             }
@@ -106,6 +103,7 @@ public class GPAPresenter implements GPAContract.Presenter {
                 @Override
                 public void onComplete() {
                     if(termVOs.size() == sum) {
+                        gpaView.hideLoading();
                         gpaView.setAchievementInfo( termSorts(termVOs) );
                     }
                 }
@@ -113,6 +111,7 @@ public class GPAPresenter implements GPAContract.Presenter {
         }
     }
 
+    //给学期排序的方法
     private List<TermVO> termSorts(List<TermVO> termVOs) {
         List<TermVO> sortList = new ArrayList<>(termVOs);
 

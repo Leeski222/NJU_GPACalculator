@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -123,7 +122,7 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
 
     @OnClick(R.id.gpa_btn_calculate)
     public void calculate() {
-        GPACounter mGPACounter = new GPACounter(GradeExpandableListAdapter.selectGrades);
+        GPACounter mGPACounter = new GPACounter(GradeExpandableListAdapter.getSelectGrades());
         final String courseNum = mGPACounter.getCourseNum() + "";
         final String sumCredit = mGPACounter.getSumCredit() + "";
         final String gpa = mGPACounter.getGPA();
@@ -151,13 +150,19 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GradeExpandableListAdapter.clearSelectGrades();
+    }
+
+    @Override
     public void setPresenter(GPAContract.Presenter presenter) {
         this.gpaPresenter = presenter;
     }
 
     @Override
     public void setAchievementInfo(List<TermVO> termVOs) {
-        gradeExpandableListView.setAdapter(new GradeExpandableListAdapter(termVOs, GPAActivity.this));
+        gradeExpandableListView.setAdapter(new GradeExpandableListAdapter(termVOs, gradeExpandableListView, GPAActivity.this));
     }
 
     @Override

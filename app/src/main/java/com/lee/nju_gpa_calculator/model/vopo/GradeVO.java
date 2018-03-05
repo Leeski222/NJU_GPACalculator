@@ -1,5 +1,7 @@
 package com.lee.nju_gpa_calculator.model.vopo;
 
+import android.widget.CheckBox;
+
 import com.lee.nju_gpa_calculator.utils.CourseType;
 
 /**
@@ -16,6 +18,7 @@ public class GradeVO {
     private String credit;          // 学分
     private String finalScore;      // 总评
 
+    private boolean isSelect;
     private CourseType type;
 
     public String getSubject() {
@@ -72,5 +75,14 @@ public class GradeVO {
 
     public CourseType getType() {
         return type;
+    }
+
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }

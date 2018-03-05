@@ -28,8 +28,10 @@ public class GPACounter {
             try {
                 courseNum ++;
                 if(!gradeVO.getCredit().equals("无")) {
-                    sumCredit += sumCredit + Double.parseDouble(gradeVO.getCredit());
-                    sumScore += sumScore * Double.parseDouble(gradeVO.getFinalScore());
+                    double credit = Double.parseDouble(gradeVO.getCredit());
+                    double finalScore = Double.parseDouble(gradeVO.getFinalScore());
+                    sumCredit += credit;
+                    sumScore += credit * finalScore;
                 }
             } catch (Exception e) {
                 gpa = "Error";
@@ -39,7 +41,7 @@ public class GPACounter {
 
         if (sumCredit != 0) {
             DecimalFormat format = new DecimalFormat("0.000");
-            gpa = format.format( (sumScore * 1.0) / (sumCredit * 20) );
+            gpa = format.format( sumScore  / (sumCredit * 20) );
         } else {
             gpa = "0.000";
         }

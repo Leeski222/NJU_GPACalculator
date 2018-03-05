@@ -20,6 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="共0门课程，0个学分"
+        android:text="共0门课程，0.0个学分"
         android:layout_marginStart="48dp"/>
 </LinearLayout>

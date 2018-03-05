@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.lee.nju_gpa_calculator.R;
@@ -16,9 +17,7 @@ import com.lee.nju_gpa_calculator.model.vopo.TermVO;
 import com.lee.nju_gpa_calculator.utils.CourseType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import me.grantland.widget.AutofitTextView;
 
@@ -26,11 +25,10 @@ import me.grantland.widget.AutofitTextView;
  * Created by 果宝 on 2018/3/2.
  */
 
-public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
+public class GradeExpandableListAdapter extends BaseExpandableListAdapter implements ExpandableListView.OnChildClickListener {
     private List<TermVO> termData;
-    private Map<String, Boolean> isSelect;
 
-    public static List<GradeVO> selectGrades = new ArrayList<>();
+    private static List<GradeVO> selectGrades = new ArrayList<>();
 
     private Context mContext;
 
@@ -48,10 +46,10 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
         private TextView finalScoreTextView;
     }
 
-    public GradeExpandableListAdapter(List<TermVO> termData, Context mContext) {
+    public GradeExpandableListAdapter(List<TermVO> termData, ExpandableListView listView, Context mContext) {
         this.termData = termData;
-        this.isSelect = new HashMap<>();
         this.mContext = mContext;
+        listView.setOnChildClickListener(this);
     }
 
     @Override
@@ -95,7 +93,7 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
 
         ViewHolderGroup groupHolder;
 
-        if(convertView == null){
+        if(convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_term, parent, false);
 
             groupHolder = new ViewHolderGroup();
@@ -103,7 +101,7 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
             groupHolder.infoTextView = (TextView) convertView.findViewById(R.id.term_tv_info);
 
             convertView.setTag(groupHolder);
-        }else{
+        } else {
             groupHolder = (ViewHolderGroup) convertView.getTag();
         }
 
@@ -126,6 +124,7 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
 
             itemHolder = new ViewHolderItem();
             itemHolder.selectCheckBox = (CheckBox) convertView.findViewById(R.id.grade_cb_select);
+            itemHolder.selectCheckBox.setFocusable(false);
             itemHolder.nameAutofitTextView = (AutofitTextView) convertView.findViewById(R.id.grade_aftv_subject);
             itemHolder.typeTextView = (TextView) convertView.findViewById(R.id.grade_tv_type);
             itemHolder.creditTextView = (TextView) convertView.findViewById(R.id.grade_tv_credit);
@@ -136,24 +135,19 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked) {
-                        isSelect.put(gradeVO.getSubject(), Boolean.TRUE);
-                        selectGrades.add(gradeVO);
+
                     } else {
-                        isSelect.put(gradeVO.getSubject(), Boolean.FALSE);
-                        selectGrades.remove(gradeVO);
+
                     }
                 }
             });
 
             convertView.setTag(itemHolder);
-        }else{
+        } else {
             itemHolder = (ViewHolderItem) convertView.getTag();
         }
 
-        Boolean isSelect = this.isSelect.get(gradeVO.getSubject());
-        if(isSelect != null && isSelect == Boolean.TRUE) {
-            itemHolder.selectCheckBox.setChecked(true);
-        }
+        itemHolder.selectCheckBox.setChecked(gradeVO.isSelect());
 
         itemHolder.nameAutofitTextView.setText(gradeVO.getSubject());
 
@@ -173,7 +167,25 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
         return true;
     }
 
-    public void initTextBackground(TextView textView, CourseType type) {
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        final ViewHolderItem itemHolder = (ViewHolderItem) v.getTag();
+        final GradeVO gradeVO = getChild(groupPosition, childPosition);
+        boolean isSelect = gradeVO.isSelect();
+
+        if(isSelect) {
+            selectGrades.remove(gradeVO);
+        } else {
+            selectGrades.add(gradeVO);
+        }
+
+        gradeVO.setSelect( !isSelect );
+        itemHolder.selectCheckBox.setChecked( !isSelect );
+
+        return false;
+    }
+
+    private void initTextBackground(TextView textView, CourseType type) {
         final GradientDrawable mTextBackground = (GradientDrawable) textView.getBackground();
 
         int color = 0;
@@ -200,5 +212,13 @@ public class GradeExpandableListAdapter extends BaseExpandableListAdapter{
         }
 
         mTextBackground.setColor(color);
+    }
+
+    public static List<GradeVO> getSelectGrades() {
+        return selectGrades;
+    }
+
+    public static void clearSelectGrades() {
+        selectGrades.clear();
     }
 }

@@ -32,11 +32,11 @@ public class GPAPresenter implements GPAContract.Presenter {
     public GPAPresenter(GPAContract.View gpaView) {
         this.gpaModel = ModelRepository.getInstance().getGPAModel();
         this.gpaView = gpaView;
-        this.termVOs = new ArrayList();
     }
 
     @Override
     public void start() {
+        this.termVOs = new ArrayList();
         getAchievementList();
     }
 
@@ -92,6 +92,7 @@ public class GPAPresenter implements GPAContract.Presenter {
                         List<GradeVO> gradeVOList = GPAHtmlParser.getCoursesBy(response);
                         termVOs.add(new TermVO(termName, gradeVOList));
                     } else {
+                        gpaView.hideLoading();
                         gpaView.getAchievementsFailed();
                     }
                 }

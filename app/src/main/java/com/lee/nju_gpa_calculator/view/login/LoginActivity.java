@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     private Handler handler;
 
+    private boolean isFirstLoading = true;
+
     private LoginContract.Presenter loginPresenter;
 
     @BindView(R.id.login_et_studentID)
@@ -88,7 +90,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void refreshValidateCodeSuccess() {
-        Toast.makeText(this, "刷新成功", Toast.LENGTH_SHORT).show();
+        if( isFirstLoading ) {
+            isFirstLoading = false;
+        } else {
+            Toast.makeText(this, "刷新成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

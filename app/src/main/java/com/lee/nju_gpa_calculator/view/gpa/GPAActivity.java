@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -39,6 +42,7 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     private String grade;
 
     private boolean isExiting = false;
+    private boolean isFirstLoading = true;
 
     private GPAContract.Presenter gpaPresenter;
 
@@ -103,6 +107,24 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_gpa, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                gpaPresenter.start();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         exitBy2Click();
     }
@@ -147,6 +169,10 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
 
     @Override
     public void setAchievementInfo(List<TermVO> termVOs) {
+        if( !isFirstLoading ) {
+            Toast.makeText(this, "刷新成功", Toast.LENGTH_SHORT).show();
+        }
+        isFirstLoading = false;
         gradeExpandableListView.setAdapter(new GradeExpandableListAdapter(termVOs, gradeExpandableListView, GPAActivity.this));
     }
 

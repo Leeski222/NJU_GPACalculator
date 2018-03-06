@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.lee.nju_gpa_calculator.R;
 import com.lee.nju_gpa_calculator.contract.GPAContract;
 import com.lee.nju_gpa_calculator.model.vopo.TermVO;
@@ -90,6 +91,7 @@ public class GPAActivity extends AppCompatActivity implements GPAContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_gpa);
+        StatService.start(this);
         ButterKnife.bind(this);
 
         mProgressBar.setIndeterminateDrawable(new IndeterminateProgressDrawable(this));

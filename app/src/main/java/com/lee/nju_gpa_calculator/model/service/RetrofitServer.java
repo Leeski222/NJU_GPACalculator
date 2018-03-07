@@ -37,7 +37,6 @@ public class RetrofitServer {
 
     public static synchronized RetrofitServer getInstance() {
         if(mRetrofitServer == null) {
-            Log.e("RetrofitServer", "create instance");
             mRetrofitServer = new RetrofitServer();
         }
         return mRetrofitServer;
